@@ -7,6 +7,7 @@ import axios from "axios";
 function App() {
   const [count, setCount] = useState(0);
   const [serverTest, serverTestFunc] = useState("");
+  const [dbResult, resultUpdate] = useState("");
   const serverURL = "http://localhost:3000";
 
   // Single use async func to get server infromation
@@ -20,6 +21,13 @@ function App() {
   useEffect( () => {
     result();
   }, []);
+
+  //Handle button click, send get request, which will call to db
+  async function handleBDClick(){
+    const response = await axios.get(serverURL + "/dbTest");
+    console.log(response.data.output);
+    resultUpdate(response.data.currUser);
+  }
 
   return (
     <>
@@ -39,6 +47,10 @@ function App() {
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
+      </div>
+      <div>
+        <button onClick={handleBDClick}>Send request to DB</button>
+        <h4>{dbResult}</h4>
       </div>
       <h3>{serverTest}</h3>
       <p className="read-the-docs">
