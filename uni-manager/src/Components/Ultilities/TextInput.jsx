@@ -3,13 +3,12 @@ import React from "react";
 function TextInput(props) {
 
     function handleChange(event){
-        const newText = event.target.value;
-        props.func(newText)
+        props.func(event.target.value);
     }
 
 
     return (
-        <input type={props.type} onChange={handleChange} placeholder={props.placeholder} />
+        <input type={props.type} value={props.value} onChange={handleChange} placeholder={props.placeholder} />
     );
 }
 

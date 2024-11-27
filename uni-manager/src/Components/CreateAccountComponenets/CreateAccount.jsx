@@ -1,26 +1,41 @@
 import React, { useState, useEffect } from 'react';
 import TextInput from '../Ultilities/textInput';
 import RequestCreation from './RequestCreation';
+import NavigationButton from '../Ultilities/NavigationButton';
 
 function CreateAccount(){
 
     //actively store username and password 
-    const [userName, setUserName] = useState("");
+    const [userName, setUsername] = useState("");
     const [userPassword, setUserPassword] = useState("");
     const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
+
     const [creationResult, setCreationResult] = useState(true);
-    const [passwordCheck, setPasswordResult] = useState(true);
+    const [passwordDiffCheck, setPasswordDiffResult] = useState(true);
+    const [emptyCheck, emptyCheckResult] = useState(false);
+
     return (
 
         <div>
-            {!creationResult && <h3>Username already taken try another one</h3>}
-            {!passwordCheck && <h3>Passwords are different try again</h3>}
-            <TextInput type="text" placeholder="Username" variable={userName} func={setUserName}/>
-            <TextInput type="password" placeholder="Password" variable={userPassword} func={setUserPassword}/>
-            <TextInput type="password" placeholder="Input Same Password Again" variable={userPasswordConfirm} func={setUserPasswordConfirm}/>
-            <RequestCreation username={userName} password={userPassword} passwordConfirm={userPasswordConfirm} funcPassword={setPasswordResult} func={setCreationResult}/>
-            <h2>{userName}</h2>
-            <h2>{userPassword}</h2>
+            <h2>Username and Password fields cannot be empty</h2>
+            <div>
+                {emptyCheck && <h3>Username or Password feild is empty, fill them out</h3>}
+                {!creationResult && <h3>Username already taken try another one</h3>}
+                {!passwordDiffCheck && <h3>Passwords are different try again</h3>}
+            </div>
+            <div>
+                <TextInput type="text" placeholder="Username" value={userName} func={setUsername}/>
+                <TextInput type="password" placeholder="Password" value={userPassword} func={setUserPassword}/>
+                <TextInput type="password" placeholder="Input Same Password Again" value={userPasswordConfirm} func={setUserPasswordConfirm}/>
+                <RequestCreation username={userName} password={userPassword} passwordConfirm={userPasswordConfirm} 
+                funcUser={setUsername} funcPass={setUserPassword} funcPassConf={setUserPasswordConfirm}
+                funcPasswordDiff={setPasswordDiffResult} funcUserCheck={setCreationResult} funcEmpty={emptyCheckResult}/>
+                <h2>{userName}</h2>
+                <h2>{userPassword}</h2>
+            </div>
+
+            <NavigationButton route={'/'} text={"Cancel"}/>
+            
         </div>
     );
 }

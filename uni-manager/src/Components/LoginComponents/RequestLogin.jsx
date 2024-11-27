@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { serverURL } from '../../App';
 
-//Component for making the login request
-
-
+//Component for making the login request, transfer to homepage if login passes
 
 function RequestLogin(props){
     const navigate = useNavigate();
@@ -21,15 +19,19 @@ function RequestLogin(props){
 
             //Check if the password was correct
             if(response.data.output == true){
-                props.func(response.data.output); //let state know login was passed
+                props.func(response.data.output); //let login know iy passed
                 console.log("You logged in");
+
+                props.funcPass(""); //Clear password variable
 
                 //redirect to homepage
                 props.login(); //Set login state to true 
                 navigate('/home-page');
             }
-            else{   
-                props.func(response.data.output); //let state know login failed
+            else{
+                props.funcPass(""); //Clear password feild 
+                props.funcUser(""); //Clear username feild
+                props.func(response.data.output); //let know login it failed
 
             }
         }

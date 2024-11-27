@@ -4,24 +4,38 @@ import axios from "axios";
 import { serverURL } from '../../App';
 
 //Component for making the login request
+// Check for possible input errors handle each 
+
 function RequestCreation(props){
     const navigate = useNavigate();
 
+    //Clear field data
+    function clearData(){
+        props.funcUser("");
+        props.funcPass("");
+        props.funcPassConf("");
+    }
+
     async function handleClick(){
 
-        
         const user = props.username;
         const pass = props.password;
         const passConfirm = props.passwordConfirm;
 
-        //initally set all the error messages back to true to avoid both at the same time
-        props.funcPassword(true);
-        props.func(true);
+        //Reset all previous error calls 
+        props.funcPasswordDiff(true);
+        props.funcUserCheck(true);
+        props.funcEmpty(false);
 
-        if(pass !== passConfirm){ //Check if the user confirmed their password
+        if((user === "" || pass === "" || passConfirm === "")){ // Confirm no input field is empty 
+            clearData();
+            props.funcEmpty(true);
+        }
+        else if(pass !== passConfirm){ //Check if the user confirmed their password correctly
 
-            props.funcPassword(false);
-
+            clearData();
+            // Let Create Account know the user did not confirm their password correctly
+            props.funcPasswordDiff(false);
         }
         else{
             try{
@@ -30,13 +44,14 @@ function RequestCreation(props){
 
                 // Check if creation passed
                 if(response.data.output == true){
-                    props.func(response.data.output); //let state know creation passed
+                    clearData();
+                    props.funcUserCheck(response.data.output); //let  Create Account know it passed
                     //redirect to login 
                     navigate('/login');
                 }
                 else{   
-                    props.func(response.data.output); //let state know creation failed
-                    
+                    clearData();
+                    props.funcUserCheck(response.data.output); //let Create Account know it failed due to duplicate username     
                 }
             }
             catch(err){
