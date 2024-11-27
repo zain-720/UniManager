@@ -1,32 +1,21 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { serverURL, login, logout } from '../../App';
+import { serverURL } from '../../App';
 
 
-const [username, setUsername] = useState("");
-
-function HomePage() {
+function HomePage(props) {
     const navigate = useNavigate();
 
     //Handle logout
     function handleLogout(){
-        logout;
-        setUsername(""); // Reset username
+        props.logout();
         navigate('/home-page');
     }
 
     return(
     <div>
 
-
-        
-
-
-
-
-
-
-
+        <h1>Welcome {props.username} </h1>
         <button onClick={handleLogout}>Log out</button>
     </div>
     );
@@ -34,4 +23,3 @@ function HomePage() {
 
 
 export default HomePage;
-export {setUsername}
