@@ -12,7 +12,7 @@ App Installation steps
   c. Open the uni management databased, left click on Schemas then left click on tables.
   d. Create a new table by ethier manually or by right clicking tables then left clicking create table, create these following tables  
   
-    make table of the name "login_table"
+    make table of the name "login_table" :
     CREATE TABLE login_data(
       id SERIAL PRIMARY KEY,
       username TEXT UNQIUE NOT NULL,
@@ -26,7 +26,7 @@ App Installation steps
 
 
 
-App usage handbook
+App Usage Guide
 
  1. Create user process
 
@@ -38,4 +38,4 @@ App usage handbook
 
 
 
-Component contruction breakdown
+Component Contruction Breakdown
