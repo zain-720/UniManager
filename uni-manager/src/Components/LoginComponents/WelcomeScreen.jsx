@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 //Website enterance page 
 function WelcomeScreen() {
 
+    
+
     const navigate = useNavigate(); //handle path navigation
 
     return (

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { serverURL, login, logout } from '../../App';
+import { serverURL, login} from '../../App';
+import { setUsername } from '../HomePageComponents/HomePage';
 
 //Component for making the login request
 function RequestLogin(props){
     const navigate = useNavigate();
-    
+
     async function handleClick(){
 
         const user = props.username;
@@ -23,6 +24,7 @@ function RequestLogin(props){
 
                 //redirect to homepage
                 login; //Set login state to true 
+                setUsername(props.username); // Sets the current user username for HomePage
                 navigate('/home-page');
             }
             else{   
