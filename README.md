@@ -6,7 +6,7 @@ App Installation steps
   a. cd to server then do (npm install)
   b. cd to uni-manager then do (npm install)
 
-3. PostgreSQL database setup
+2. PostgreSQL database setup
   a. Install PostgreSQL version 15, do not change anything from what the default isntallation has, remember your password
   b. Open up pgAdmin4 then right click on Databases and create a new database called "uni-management", keep everything else to default settings
   c. Open the uni management databased, left click on Schemas then left click on tables.
@@ -21,7 +21,8 @@ App Installation steps
   
   e. 
 
-4. Internal setup process
+3. Internal setup process
+
   a. Within server/server.js edit the information given to create the db connection, change the password to whatever you choose as your PostgreSQL password
 
 
