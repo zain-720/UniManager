@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 
 import Welcome from './Components/WelcomePageComponents/WelcomeScreen';
 import Login from './Components/LoginComponents/Login';
 import CreateUser from './Components/CreateAccountComponenets/CreateAccount';
 import HomePage from './Components/HomePageComponents/HomePage';
 import ProtectedRoute from './Components/Ultilities/ProtectedRoute';
+import HandleLoggedOut from './Components/Ultilities/HandleLoggedOut';
+import NoteTaker from './Components/HomePageComponents/NoteTaker';
 
 //import './App.css';
 import axios from "axios";
@@ -33,12 +34,6 @@ function App() {
 
 
   //Setup route connections between pages.
-
-  //Protection of pages with login
-  const ProtectedRoute = (isAuthenticated) => {
-    return isAuthenticated ? <HomePage logout={logout} username={username} /> : <Login login={login} setUsername={setUsername} username={username}/>;
-  };
-  
   return (
     <>
         <Router 
@@ -47,11 +42,12 @@ function App() {
         v7_startTransition: true, //transition better
         }}>
             <Routes>
-
                 <Route path="/" element={<Welcome />}/>
                 <Route path="/login" element={<Login login={login} setUsername={setUsername} username={username}/>}/>
                 <Route path="/create-account" element={<CreateUser />}/>
-                <Route path="/home-page" element={<ProtectedRoute login={<Login login={login} setUsername={setUsername} username={username}/>}  passRoute={<HomePage logout={logout} username={username}/>}  />}/>
+                <Route path="/home-page" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<HomePage logout={logout} username={username}/>} handleLoggedOut={<HandleLoggedOut/>}  />}>
+                  <Route path="note-taker" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<NoteTaker username={username}/>} handleLoggedOut={<HandleLoggedOut/>} />}/>
+                </Route>
 
             </Routes>
         </Router>

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 //Button used for simple naviagtion
-//requires a route given to it as 'route'
+//requires a route given to it as 'route' and text given as 'text'
 function NavigationButton(props){
 
     const navigate = useNavigate();
