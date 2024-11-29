@@ -8,19 +8,6 @@ import GetNoteData from './NoteTakerComponents/GetNoteData';
 function NoteTaker(props){
   const location = useLocation();
 
-  //Use Effect to get the note information for username
-
-  //Create smaller textbox display for note-name (For now this only shows up for newNotes)
-  //Create larger textbox display bleow for note
-
-  //Seperate displays for newNote and oldNote (one has added feild for new note (limit char for this))
-
-  //Create drop down menu for notes
-
-  //Start up is an empty fresh note
-
-  //Get Notes for this user from database
-  
   //Set loading buffer for noteData
   const [loading, setLoading] = useState(true);
 
@@ -40,20 +27,16 @@ function NoteTaker(props){
   //Store NoteData return from database
   const [noteData, setNoteData] = useState(null);
 
-  // This useEffect watches for changes in noteData
-
   // Get note data for user whenever note-taker is opened
   useEffect(() => {
     const fetchData = async () => {
     setLoading(true);  
-    await GetNoteData(setNoteData, largestNoteKey, props.username);
+    await GetNoteData(setNoteData, props.username);
     setLoading(false);
     };
     fetchData();
   },[location]);
 
-  // Set the starting key to new note key
-  
 
   // Handle saving and deletion requests 
   function handleSave(){
@@ -67,7 +50,6 @@ function NoteTaker(props){
   }
   else{ //This will run after inital loading of the noteData
 
-    console.log("noteData test ", noteData);
     return (
       <div>
         <h1>Hi {props.username} Welcome to note taker</h1>
@@ -79,7 +61,7 @@ function NoteTaker(props){
         largestNoteKey={largestNoteKey}
         noteData={noteData}/>
 
-        <button onClick={handleSave}>Save</button>
+        <button onClick={handleSave}>Save Note</button>
         {!isNewNote && <button onClick={handleDelete}>Delete Note</button>}
       </div>
     );

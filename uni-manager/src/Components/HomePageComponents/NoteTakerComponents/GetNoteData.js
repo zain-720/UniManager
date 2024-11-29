@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 //Get the note data for the given user
-const GetNoteData = async(setNoteData, largestNoteKey, username) =>{
+const GetNoteData = async(setNoteData, username) =>{
     
     try{
         //Get user note data and their largest note key
@@ -13,7 +13,6 @@ const GetNoteData = async(setNoteData, largestNoteKey, username) =>{
         
         //Set data up
         setNoteData(response.data);
-        largestNoteKey = response.data.key_number;
 
     }
     catch(err){
