@@ -11,7 +11,7 @@ App Installation steps
   a. Install PostgreSQL version 15, do not change anything from what the default isntallation has, remember your password
   b. Open up pgAdmin4 then right click on Databases and create a new database called "uni-management", keep everything else to default settings
   c. Open the uni management databased, left click on Schemas then left click on tables.
-  d. Create a new table by ethier manually or by right clicking tables then left clicking create table, create these following tables  
+  d. Create a new table by ethier manually or by right clicking tables then left clicking create table, create these following tables and setups  
   
     make table of the name "login_table" :
     CREATE TABLE login_data(
@@ -19,7 +19,37 @@ App Installation steps
       username TEXT UNQIUE NOT NULL,
       password TEXT NOT NULL
     );
-  
+
+    make Type of the name note_object :
+    CREATE TYPE note_object AS (
+      key TEXT,
+      title TEXT,
+      content TEXT
+    );
+
+    make table of the name note_data :
+    CREATE TABLE note_data (
+      id INTEGER PRIMARY KEY REFERENCES login_data(id),
+      username TEXT REFERENCES login_data(username),
+      notes JSONB[],
+      key_number INTEGER
+    );
+
+    Create a Trigger Function to auto update note-data table when a new user is added :
+    CREATE FUNCTION create_note_data()
+    RETURNS TRIGGER AS $$
+    BEGIN
+        INSERT INTO note_data (id, username, notes, key_number)
+        VALUES (NEW.id, NEW.username, ARRAY[]::JSONB[], 0);
+        RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER after_login_insert
+        AFTER INSERT ON login_data
+        FOR EACH ROW
+        EXECUTE FUNCTION create_note_data();
+      
   e. 
 
 3. Internal setup process
@@ -40,3 +70,14 @@ App Usage Guide
 
 
 Component Contruction Documentation
+
+
+
+
+
+App Database Table Strucutures
+
+
+1. login_data : id, username, password 
+
+2. note_data : referenced from login_data(id, username), noteArray[{key, title, content},{},{}]

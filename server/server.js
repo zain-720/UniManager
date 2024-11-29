@@ -77,6 +77,21 @@ app.post("/requestCreation", async (req, res) => {
     }
 });
 
+//Get request to try to get user notes data
+app.get('/requestNoteData', async (req, res) => {  
+    try{
+        const { username } = req.query;
+        const result = await db.query('SELECT * FROM note_data WHERE username = $1', [username]);
+
+        //retrun the row containing the given users note data
+        res.json(result.rows[0]);
+    }
+    catch(err) {
+        console.error(err)
+    }
+});
+
+
 //Listen on Port3000
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
