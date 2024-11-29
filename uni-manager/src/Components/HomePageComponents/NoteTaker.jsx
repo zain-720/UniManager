@@ -20,7 +20,9 @@ function NoteTaker(props){
   //Start up is an empty fresh note
 
   //Get Notes for this user from database
-
+  
+  //Set loading buffer for noteData
+  const [loading, setLoading] = useState(true);
 
   //Display UseStates
   const [isNewNote, setIsNewNote] = useState(true);
@@ -36,15 +38,22 @@ function NoteTaker(props){
   //const [largestNoteKey, setLargestNoteKey] = useState(0);
 
   //Store NoteData return from database
-  const [noteData, setNoteData] = useState([]);
+  const [noteData, setNoteData] = useState(null);
 
-  // Get note data for user
+  // This useEffect watches for changes in noteData
+
+  // Get note data for user whenever note-taker is opened
   useEffect(() => {
-    GetNoteData(setNoteData, largestNoteKey, props.username);
+    const fetchData = async () => {
+    setLoading(true);  
+    await GetNoteData(setNoteData, largestNoteKey, props.username);
+    setLoading(false);
+    };
+    fetchData();
   },[location]);
 
   // Set the starting key to new note key
-  currentNoteKey = (largestNoteKey+1).toString;
+  
 
   // Handle saving and deletion requests 
   function handleSave(){
@@ -53,23 +62,29 @@ function NoteTaker(props){
   function handleDelete(){
   }
 
-  return (
+  if(loading){
+    return(<h3>Loading...</h3>);
+  }
+  else{ //This will run after inital loading of the noteData
 
-    <div>
-      <h1>Hi {props.username} Welcome to note taker</h1>
-      <NoteTakerDisplay 
-      isNewNote={isNewNote} setIsNewNote={setIsNewNote}
-      currentNote={currentNote} setCurrentNote={setCurrentNote}
-      currentNoteName={currentNoteName} setCurrentNoteName={setCurrentNoteName}
-      currentNoteKey={currentNoteKey}
-      largestNoteKey={largestNoteKey}
-      noteData={noteData}/>
+    console.log("noteData test ", noteData);
+    return (
+      <div>
+        <h1>Hi {props.username} Welcome to note taker</h1>
+        <NoteTakerDisplay 
+        isNewNote={isNewNote} setIsNewNote={setIsNewNote}
+        currentNote={currentNote} setCurrentNote={setCurrentNote}
+        currentNoteName={currentNoteName} setCurrentNoteName={setCurrentNoteName}
+        currentNoteKey={currentNoteKey}
+        largestNoteKey={largestNoteKey}
+        noteData={noteData}/>
 
-
-      <button onClick={handleSave}>Save</button>
-      {!isNewNote && <button onClick={handleDelete}>Delete Note</button>}
-    </div>
-  );
+        <button onClick={handleSave}>Save</button>
+        {!isNewNote && <button onClick={handleDelete}>Delete Note</button>}
+      </div>
+    );
+  }
+  
 };
 
 export default NoteTaker;

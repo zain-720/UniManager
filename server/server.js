@@ -84,6 +84,7 @@ app.get('/requestNoteData', async (req, res) => {
         const result = await db.query('SELECT * FROM note_data WHERE username = $1', [username]);
 
         //retrun the row containing the given users note data
+        console.log(result.rows[0]);
         res.json(result.rows[0]);
     }
     catch(err) {

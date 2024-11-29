@@ -10,16 +10,11 @@ const GetNoteData = async(setNoteData, largestNoteKey, username) =>{
     try{
         //Get user note data and their largest note key
         const response = await axios.get(serverURL + "/requestNoteData", { params: {username} });
-        // Check if the user has notes made or not
-        if((response.data.notes).length > 0){
-            console.log("notes not empty");
-            setNoteData(response.data);
-            largestNoteKey = response.data.key_number;
-        }
-        else{
-            console.log("notes empty");
-            largestNoteKey = response.data.key_number;
-        }
+        
+        //Set data up
+        setNoteData(response.data);
+        largestNoteKey = response.data.key_number;
+
     }
     catch(err){
         console.error(err);
