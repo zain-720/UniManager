@@ -10,7 +10,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url)); //get path to curent 
 const app = express(); 
 const port = 3000;
 
-const corsOptions = {origin: ["http://localhost:5173"],}; //vite runs on 5173
+const corsOptions = {origin: ["http://localhost:5173"],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}; //vite runs on 5173
 
 //User inputs whatever their password is for their postgres
 const db = new pg.Client({
@@ -91,6 +93,37 @@ app.get('/requestNoteData', async (req, res) => {
         console.error(err)
     }
 });
+
+//PUT request to try to add a new note  
+app.put("/requestAddNote", async (req, res) => {
+    try{
+        const { newData, username, newKeyValue } = req.body;
+        console.log("supposed to be enw data", newData);
+        console.log("supposed to be new" ,newKeyValue);
+        const result = await db.query("UPDATE note_data SET notes = $1, key_number = $2 WHERE username = $3 RETURNING *;", [newData, newKeyValue, username]); 
+        console.log("done1");
+        res.send('Complete');
+    }    
+    catch(err){
+        console.error(err)   
+    }
+});
+
+//PUT request to try to update an old note (ethier text update or deleting a note) 
+app.put("/requestUpdateOrDeleteNote", async (req, res) => {
+    try{
+        const { newData, username } = req.body;
+        console.log("supposed to update", newData);
+        const result = await db.query("UPDATE note_data SET notes = $1 WHERE username = $2 RETURNING *;", [newData, username]); 
+        console.log("done2");
+        res.send('Complete2');
+    }    
+    catch(err){
+        console.error(err)   
+    }
+});
+
+
 
 
 //Listen on Port3000

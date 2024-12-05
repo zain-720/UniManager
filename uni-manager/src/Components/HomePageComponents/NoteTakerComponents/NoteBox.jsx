@@ -16,8 +16,6 @@ function NoteBox(props){
         props.setCurrentNoteName(event.target.value);
     };
 
-    
-
     return (
 
         <div>

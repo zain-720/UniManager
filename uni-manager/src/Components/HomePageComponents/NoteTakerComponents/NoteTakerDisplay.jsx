@@ -11,33 +11,46 @@ function NoteTakerDisplay(props){
     //Handle the selection of a new note
     function handleSelect(note){
 
-        props.setIsNewNote(note.newNote);
-        props.setCurrentNote(note.text);
-        props.setCurrentNoteName(note.title);
-        props.currentNoteKey(key);
+        const obj = JSON.parse(note);
+
+        const {newNote, text, title, key} = obj
+
+        console.log(obj.key);
+        props.setIsNewNote(newNote);
+        props.setCurrentNote(text);
+        props.setCurrentNoteName(title);
+        props.setCurrentNoteKey(key);
 
     }
 
     const dropDownData = props.noteData.notes;
-    const newNoteKey = props.noteData.key_value;
+    const newNoteKey = props.noteData.key_number;
+
+    const currentValue = JSON.stringify({
+        newNote: props.isNewNote,
+        title: props.currentNoteName,
+        text: props.currentNote,
+        key: props.currentNoteKey
+    });
 
     return (
 
         <div>
             <div>
-                <select value={props.currentNote} onChange={(e) => handleSelect(e.target.value)}>
-                    <option value={{newNote: true, title: "", text: "", key: newNoteKey }}>Select First</option>
+                <select value={currentValue} onChange={(e) => handleSelect(e.target.value)}>
+                    <option value={JSON.stringify({newNote: true, title: "", text: "", key: newNoteKey })}>New Note</option>
 
-                    {(dropDownData.length > 0) && dropDownData.map(function(noteInfo){
-                        <option key={noteInfo.key} value={{newNote: false, title: noteInfo.title, text: noteInfo.note, key: noteInfo.key}}></option>
+                    {(dropDownData.length > 0) && dropDownData.map((noteInfo) =>{
+                        return <option key={noteInfo.key} value={JSON.stringify({newNote: false, title: noteInfo.title, text: noteInfo.text, key: noteInfo.key})}>{noteInfo.title}</option>
                     }) }
                 </select>
             </div>
             
             <div>
                 <NoteBox currentNote={props.currentNote} setCurrentNote={props.setCurrentNote} isNewNote={props.isNewNote} 
-                currentNoteName={props.currentNoteName} setCurrentNoteName={props.setCurrentNoteName}/>
+                currentNoteName={props.currentNoteName} setCurrentNoteName={props.setCurrentNoteName} />
             </div>
+            
         </div>
     );
 };
