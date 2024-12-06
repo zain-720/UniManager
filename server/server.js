@@ -102,7 +102,7 @@ app.put("/requestAddNote", async (req, res) => {
         console.log("supposed to be new" ,newKeyValue);
         const result = await db.query("UPDATE note_data SET notes = $1, key_number = $2 WHERE username = $3 RETURNING *;", [newData, newKeyValue, username]); 
         console.log("done1");
-        res.send('Complete');
+        res.send('Complete'); // REMINDER : always send backa response 
     }    
     catch(err){
         console.error(err)   

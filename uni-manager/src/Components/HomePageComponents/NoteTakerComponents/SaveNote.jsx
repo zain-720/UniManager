@@ -53,8 +53,6 @@ const SaveNote = async (props)=> {
 
         //find index of note to update
         const index = props.noteData.notes.findIndex(element => {
-            console.log(element.key);
-            console.log(props.currentNoteKey);
             return element.key === props.currentNoteKey});
 
         //console.log("Note Key", index);
@@ -65,7 +63,7 @@ const SaveNote = async (props)=> {
         props.setNoteData({...props.noteData, notes: updatedNotes}); //Update the notes text
 
         //console.log("Data to be sent", updatedNotes);
-        const response = await axios.put(serverURL + "/requestUpdateOrDeleteNote", {newData: updatedNotes, username: props.username})
+        const response = await axios.put(serverURL + "/requestUpdateOrDeleteNote", {newData: updatedNotes, username: props.username});
         //console.log("Server response:", response.data);
         //console.log("hi2");
 

@@ -5,6 +5,7 @@ import NoteTakerDisplay from './NoteTakerComponents/NoteTakerDisplay';
 import GetNoteData from './NoteTakerComponents/GetNoteData';
 import SaveNote from './NoteTakerComponents/SaveNote';
 import NoteBox from './NoteTakerComponents/NoteBox';
+import DeleteNote from './NoteTakerComponents/DeleteNote';
 
 //Protection of pages with login
 function NoteTaker(props){
@@ -42,8 +43,6 @@ function NoteTaker(props){
       setCurrentNoteName: setCurrentNoteName,
       currentNoteKey: currentNoteKey,
       noteData: noteData,
-      loading: loading,
-      setLoading: setLoading,
       setNoteData: setNoteData,
       handleSelect: handleSelect
     });
@@ -52,7 +51,9 @@ function NoteTaker(props){
 
   }
 
-  function handleDelete(){
+  // Handle note deletion requests 
+  async function handleDelete(){
+    DeleteNote({username: props.username, noteData: noteData, setNoteData: setNoteData, currentNoteKey, handleSelect: handleSelect});
   }
 
   //Handle the selection of a new note
