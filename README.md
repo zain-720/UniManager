@@ -5,6 +5,7 @@ App Installation steps
 1. npm package setup
   a. cd to server then do (npm install)
   b. cd to uni-manager then do (npm install)
+  c. To run server and webpage do npm run dev on directory server and uni-manager
 
 2. PostgreSQL database setup
 
@@ -18,13 +19,6 @@ App Installation steps
       id SERIAL PRIMARY KEY,
       username TEXT UNQIUE NOT NULL,
       password TEXT NOT NULL
-    );
-
-    make Type of the name note_object :
-    CREATE TYPE note_object AS (
-      key TEXT,
-      title TEXT,
-      content TEXT
     );
 
     make table of the name note_data :
@@ -80,4 +74,4 @@ App Database Table Strucutures
 
 1. login_data : id, username, password 
 
-2. note_data : referenced from login_data(id, username), noteArray[{key, title, content},{},{}]
+2. note_data : referenced from login_data(id, username), noteArray[{key, title, content},key_number,]

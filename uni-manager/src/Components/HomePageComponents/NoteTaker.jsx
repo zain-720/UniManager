@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useOutletContext, useNavigate } from 'react-router-dom';
 import axios from "axios";
 import NoteTakerDisplay from './NoteTakerComponents/NoteTakerDisplay';
@@ -21,71 +21,70 @@ function NoteTaker(props){
   ] = useOutletContext();
 
   //Display UseStates
+
+  //Booleans isNewNote, isNameEmpty
   const [isNewNote, setIsNewNote] = useState(true);
+  const [isNameEmpty, setIsNameEmpty] = useState(false);
   //Current Note
   const [currentNote, setCurrentNote] = useState("");
   //Current Note Name
   const [currentNoteName, setCurrentNoteName] = useState("");
   //Current Note Key 
-  const [currentNoteKey, setCurrentNoteKey] = useState("");
+  const [currentNoteKey, setCurrentNoteKey] = useState((noteData.key_number).toString());
   
 
   // Handle saving requests 
   async function handleSave(){
-    //console.log(isNewNote);
+    setLoading(true);
     SaveNote({
       username: props.username,
       isNewNote: isNewNote,
-      setIsNewNote: setIsNewNote,
       currentNote: currentNote,
-      setCurrentNote: setCurrentNote,
       currentNoteName: currentNoteName,
-      setCurrentNoteName: setCurrentNoteName,
       currentNoteKey: currentNoteKey,
       noteData: noteData,
       setNoteData: setNoteData,
-      handleSelect: handleSelect
+      handleSelect: handleSelect,
+      setIsNameEmpty: setIsNameEmpty
     });
-    //console.log("back");
-    //console.log(isNewNote);
-
+    setLoading(false);
   }
 
   // Handle note deletion requests 
   async function handleDelete(){
-    DeleteNote({username: props.username, noteData: noteData, setNoteData: setNoteData, currentNoteKey, handleSelect: handleSelect});
+    setLoading(true);
+    DeleteNote({username: props.username, noteData: noteData, setNoteData: setNoteData, currentNoteKey: currentNoteKey, handleSelect: handleSelect});
+    setLoading(false);
   }
 
   //Handle the selection of a new note
   function handleSelect(note){
 
     const obj = JSON.parse(note);
-
     const {newNote, text, title, key} = obj
-    //console.log("here moving");
-    //console.log(obj);
+
+    setIsNameEmpty(false); //By default reset this to false upon any change 
     setIsNewNote(newNote);
     setCurrentNote(text);
     setCurrentNoteName(title);
     setCurrentNoteKey(key);
-
   }
 
   //Drop down menu variables 
-  //const dropDownData = noteData.notes;
-
+  const dropDownData = noteData.notes;
   const newNoteKey = noteData.key_number;
 
   if(loading){
     return(<h3>Loading...</h3>);
   }
   else{ //This will run after inital loading of the noteData
+    //Output the note taker
     return (
       <div>
-        <h1>Hi {props.username} Welcome to note taker</h1>
+        <h3>Hi {props.username} Welcome to note taker</h3>
         <div>
             <div>
-                <select value={currentNoteKey} onChange={(e) => { const selectedOption = (noteData.notes.find(note=> note.key === e.target.value))||{newNote: true, title: "", text: "", key: newNoteKey.toString()}; 
+                <select value={currentNoteKey} onChange={(e) => { const selectedOption = (dropDownData.find(note=> note.key === e.target.value))||{newNote: true, title: "", text: "", key: newNoteKey.toString()}; 
                 handleSelect(
                   JSON.stringify({
                     newNote: selectedOption.newNote,
@@ -96,23 +95,23 @@ function NoteTaker(props){
                 ); }}>
                     <option value={newNoteKey.toString()}>New Note</option>
 
-                    {(noteData.notes.length > 0) && noteData.notes.map((noteInfo) =>{
+                    {(dropDownData.length > 0) && dropDownData.map((noteInfo) =>{
                         return <option key={noteInfo.key} value={noteInfo.key}>{noteInfo.title}</option>
                     }) }
                 </select>
             </div>
             <div>
+                {isNameEmpty && <h4>Note name cannot be empty!</h4>}
                 <NoteBox currentNote={currentNote} setCurrentNote={setCurrentNote} isNewNote={isNewNote} 
                 currentNoteName={currentNoteName} setCurrentNoteName={setCurrentNoteName} />
             </div>
         </div>
-
         <button onClick={handleSave}>Save Note</button>
         {!isNewNote && <button onClick={handleDelete}>Delete Note</button>}
       </div>
     );
   }
-  
+
 };
 
 export default NoteTaker;
