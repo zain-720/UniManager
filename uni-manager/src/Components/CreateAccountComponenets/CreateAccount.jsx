@@ -17,11 +17,11 @@ function CreateAccount(){
     return (
 
         <div>
-            <h2>Username and Password fields cannot be empty</h2>
+            <h3>Username and Password fields cannot be empty</h3>
             <div>
-                {emptyCheck && <h3>Username or Password feild is empty, fill them out</h3>}
-                {!creationResult && <h3>Username already taken try another one</h3>}
-                {!passwordDiffCheck && <h3>Passwords are different try again</h3>}
+                {emptyCheck && <h4>Username or Password feild is empty, fill them out</h4>}
+                {!creationResult && <h4>Username already taken try another one</h4>}
+                {!passwordDiffCheck && <h4>Passwords are different try again</h4>}
             </div>
             <div>
                 <TextInput type="text" placeholder="Username" value={userName} func={setUsername}/>
