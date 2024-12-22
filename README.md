@@ -53,7 +53,7 @@ App Usage Guide
     To run server and webpage do (npm run dev) on directory server and uni-manager to start the server and the react app
 
  1. Create user process
-  To create a user it must have a unqiue username associated with it 
+  To create a user it must have a unqiue username associated with it, password must be entered twice and needs to match to be accepted
 
  2. Login process
   Login process is simple just enter a created users username and password to enter into the hompage
