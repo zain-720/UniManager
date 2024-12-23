@@ -38,6 +38,15 @@ function HomePage(props) {
         navigate('/home-page/note-taker');
       };
 
+    //Handle move to todo-list
+    //Handle move to note-taker
+    const handleTodoList = async () => {
+        setLoading(true);  
+        await GetNoteData(setNoteData, props.username);
+        setLoading(false);
+        navigate('/home-page/todo-list');
+      };
+
     return(
     <div>
         <h1>Welcome {props.username} </h1>
@@ -45,11 +54,13 @@ function HomePage(props) {
         {/* Display child route buttons here */}
         <div>
         <button onClick={handleNoteTaker}>Note Taker</button>
+        <button onClick={handleTodoList}>Todo List</button>
         </div>
 
         {/* Display child routes here */}
         <div>
             {location.pathname === '/home-page/note-taker' && <Outlet context={[noteData, setNoteData, loading, setLoading ]}/>}
+            {location.pathname === '/home-page/todo-list' && <Outlet context={[noteData, setNoteData, loading, setLoading ]}/>}
             
         </div>
 

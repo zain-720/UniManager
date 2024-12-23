@@ -43,6 +43,29 @@ App Installation steps
         FOR EACH ROW
         EXECUTE FUNCTION create_note_data(); 
 
+    make table of the name todolist_data :
+    CREATE TABLE todolist_data (
+      id INTEGER PRIMARY KEY REFERENCES login_data(id),
+      username TEXT REFERENCES login_data(username),
+      items JSONB[],
+      key_number INTEGER
+    );
+
+    Create a Trigger Function to auto update todolist-data table when a new item is added :
+    CREATE FUNCTION create_todolist_data()
+    RETURNS TRIGGER AS $$
+    BEGIN
+        INSERT INTO todolist_data (id, username, items, key_number)
+        VALUES (NEW.id, NEW.username, ARRAY[]::JSONB[], 0);
+        RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER after_login_insert2
+        AFTER INSERT ON login_data
+        FOR EACH ROW
+        EXECUTE FUNCTION create_todolist_data(); 
+
 3. Internal setup process
 
   a. Within server/server.js edit the information given to create the db connection, change the password to whatever you choose as your PostgreSQL password
@@ -64,6 +87,9 @@ App Usage Guide
   a. Note Taker 
     Has the ability to create notes, edit them, and delete them 
 
+  b. Todo List 
+    Function with the ability to store 200 character messages in a list, inputed from the todo list app
+
 Component Contruction Documentation
 
   App :
@@ -76,11 +102,15 @@ Component Contruction Documentation
 
   HomePage:
 
-  NoteTaker:
+    NoteTaker:
+
+    TodoList
+
+
 
 
 App Database Table Strucutures
 
 1. login_data : id, username, password 
 
-2. note_data : referenced from login_data(id, username), noteArray[{key, title, content},key_number]
+2. note_data : referenced from login_data(id, username), noteArray[{key, title, content}], key_number todoList_NoteArray[{key, item, due date}], todoList_key_number
