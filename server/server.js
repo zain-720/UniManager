@@ -98,10 +98,10 @@ app.get('/requestNoteData', async (req, res) => {
 app.put("/requestAddNote", async (req, res) => {
     try{
         const { newData, username, newKeyValue } = req.body;
-        console.log("supposed to be enw data", newData);
-        console.log("supposed to be new" ,newKeyValue);
+        //console.log("supposed to be enw data", newData);
+        //console.log("supposed to be new" ,newKeyValue);
         const result = await db.query("UPDATE note_data SET notes = $1, key_number = $2 WHERE username = $3 RETURNING *;", [newData, newKeyValue, username]); 
-        console.log("done1");
+        //console.log("done1");
         res.send('Complete'); // REMINDER : always send backa response 
     }    
     catch(err){
@@ -113,9 +113,9 @@ app.put("/requestAddNote", async (req, res) => {
 app.put("/requestUpdateOrDeleteNote", async (req, res) => {
     try{
         const { newData, username } = req.body;
-        console.log("supposed to update", newData);
+        //console.log("supposed to update", newData);
         const result = await db.query("UPDATE note_data SET notes = $1 WHERE username = $2 RETURNING *;", [newData, username]); 
-        console.log("done2");
+        //console.log("done2");
         res.send('Complete2');
     }    
     catch(err){
@@ -124,6 +124,35 @@ app.put("/requestUpdateOrDeleteNote", async (req, res) => {
 });
 
 
+//Get request to try to get user todo list data
+app.get('/requestTodoListData', async (req, res) => {  
+    try{
+        const { username } = req.query;
+        const result = await db.query('SELECT * FROM todolist_data WHERE username = $1', [username]);
+
+        //retrun the row containing the given users note data
+        //console.log(result.rows[0]);
+        res.json(result.rows[0]);
+    }
+    catch(err) {
+        console.error(err)
+    }
+});
+
+//PUT request to try to update the todo items array 
+app.put("/requestUpdateList", async (req, res) => {
+    try{
+        const { newData, username, nextKeyValue } = req.body;
+        //console.log("supposed to be new data", newData);
+        //console.log("supposed to be new" ,newKeyValue);
+        const result = await db.query("UPDATE todolist_data SET items = $1, key_number = $2 WHERE username = $3 RETURNING *;", [newData, nextKeyValue, username]); 
+        //console.log("done1");
+        res.send('Complete'); // REMINDER : always send backa response 
+    }    
+    catch(err){
+        console.error(err)   
+    }
+});
 
 
 //Listen on Port3000

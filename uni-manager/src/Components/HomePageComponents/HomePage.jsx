@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { serverURL } from '../../App';
 import GetNoteData from './NoteTakerComponents/GetNoteData';
+import GetTodoListData from './TodoListComponents/GetTodoListData';
 import { Link, Outlet } from "react-router-dom";
 
 //Utility imports 
@@ -21,6 +22,9 @@ function HomePage(props) {
 
     //Store NoteData return from database
     const [noteData, setNoteData] = useState(null);
+
+    //Store NoteData return from database
+    const [todoData, setTodoData] = useState(null);
 
     // Homepage navigation helpers 
 
@@ -42,7 +46,7 @@ function HomePage(props) {
     //Handle move to note-taker
     const handleTodoList = async () => {
         setLoading(true);  
-        await GetNoteData(setNoteData, props.username);
+        await GetTodoListData(setTodoData, props.username);
         setLoading(false);
         navigate('/home-page/todo-list');
       };
@@ -60,7 +64,7 @@ function HomePage(props) {
         {/* Display child routes here */}
         <div>
             {location.pathname === '/home-page/note-taker' && <Outlet context={[noteData, setNoteData, loading, setLoading ]}/>}
-            {location.pathname === '/home-page/todo-list' && <Outlet context={[noteData, setNoteData, loading, setLoading ]}/>}
+            {location.pathname === '/home-page/todo-list' && <Outlet context={[todoData, setTodoData, loading, setLoading ]}/>}
             
         </div>
 

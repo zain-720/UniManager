@@ -85,10 +85,10 @@ App Usage Guide
   Is a hub for all the apps current main features listed below
 
   a. Note Taker 
-    Has the ability to create notes, edit them, and delete them 
+    Has the ability to create notes, edit them, and delete them while also storing all of them
 
   b. Todo List 
-    Function with the ability to store 200 character messages in a list, inputed from the todo list app
+    Function with the ability to store todo messages in a list ordered by closest todo to current date, inputed from the todo list app
 
 Component Contruction Documentation
 
@@ -104,13 +104,13 @@ Component Contruction Documentation
 
     NoteTaker:
 
-    TodoList
-
-
+    TodoList:
 
 
 App Database Table Strucutures
 
 1. login_data : id, username, password 
 
-2. note_data : referenced from login_data(id, username), noteArray[{key, title, content}], key_number todoList_NoteArray[{key, item, due date}], todoList_key_number
+2. note_data : referenced from login_data(id, username), noteArray[{key, title, content}], key_number 
+
+3. todolist_data : referenced from login_data(id, username), items[{key, item, due_date, completed}], key_number

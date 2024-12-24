@@ -22,7 +22,7 @@ function NoteBox(props){
 
             <div>
                 {props.isNewNote ? <input type="text" value={props.currentNoteName} onChange={handleNameChange} 
-                placeholder="Note Name" maxLength={50} style={{width: '400px' }}/>  : <h3>{props.currentNoteName}</h3>}
+                placeholder="Note Name" maxLength={120} style={{width: '400px' }}/>  : <h3>{props.currentNoteName}</h3>}
             </div>
             <div >
                 <textarea 

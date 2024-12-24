@@ -7,7 +7,7 @@ const GetTodoListData = async(setNoteData, username) =>{
     
     try{
         //Get user note data and their largest note key
-        const response = await axios.get(serverURL + "/requestNoteData", { params: {username} });
+        const response = await axios.get(serverURL + "/requestTodoListData", { params: {username} });
         
         //Set data up
         setNoteData(response.data);
@@ -18,4 +18,4 @@ const GetTodoListData = async(setNoteData, username) =>{
     }
 };
 
-export default GetTotoListData;
+export default GetTodoListData;
