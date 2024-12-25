@@ -10,6 +10,8 @@ const __dirname = dirname(fileURLToPath(import.meta.url)); //get path to curent 
 const app = express(); 
 const port = 3000;
 
+
+
 const corsOptions = {origin: ["http://localhost:5173"],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
 }; //vite runs on 5173
@@ -28,6 +30,37 @@ app.use(cors(corsOptions)); //requests now only accepted from vite server
 app.use(bodyParser.json()); //parse incoming JSON bodies 
 app.use(bodyParser.urlencoded({ extended: true })); //add body parser to the server
 app.use(express.static("public"));
+
+//Reasource lock to prevent race conditions when using noteTaker, key is username, value is the date made
+const noteLocks = new Map();
+
+//Post request for attempting to set a lock for username
+app.post('/acquireNoteLock', async (req, res) => {
+    const { username } = req.body;
+    
+    // Check if this username already has a lock
+    if (noteLocks.has(username)) {
+        // If locked, reject the request
+        res.status(423).json({ message: 'Resource locked' });
+        return;
+    }
+    
+    // If not locked, create a new lock
+    noteLocks.set(username, Date.now());
+    //console.log("acquired ", noteLocks);
+    res.status(200).json({ message: 'Lock acquired' });
+});
+
+//Post request for attempting to release a lock for username
+app.post('/releaseNoteLock', (req, res) => {
+    const { username } = req.body;
+    //console.log("released ", noteLocks);
+    noteLocks.delete(username);
+    
+    res.json({ message: 'Lock released' });
+});
+
+
 
 //Get request for finding if the user has entered valid credentials 
 app.get('/requestLogin', async (req, res) => {  
@@ -86,7 +119,7 @@ app.get('/requestNoteData', async (req, res) => {
         const result = await db.query('SELECT * FROM note_data WHERE username = $1', [username]);
 
         //retrun the row containing the given users note data
-        console.log(result.rows[0]);
+        //console.log("note data ", result.rows[0]);
         res.json(result.rows[0]);
     }
     catch(err) {
@@ -102,7 +135,7 @@ app.put("/requestAddNote", async (req, res) => {
         //console.log("supposed to be new" ,newKeyValue);
         const result = await db.query("UPDATE note_data SET notes = $1, key_number = $2 WHERE username = $3 RETURNING *;", [newData, newKeyValue, username]); 
         //console.log("done1");
-        res.send('Complete'); // REMINDER : always send backa response 
+        res.send('Complete'); // REMINDER : always send back a response 
     }    
     catch(err){
         console.error(err)   
@@ -147,7 +180,7 @@ app.put("/requestUpdateList", async (req, res) => {
         //console.log("supposed to be new" ,newKeyValue);
         const result = await db.query("UPDATE todolist_data SET items = $1, key_number = $2 WHERE username = $3 RETURNING *;", [newData, nextKeyValue, username]); 
         //console.log("done1");
-        res.send('Complete'); // REMINDER : always send backa response 
+        res.send('Complete'); // REMINDER : always send back a response 
     }    
     catch(err){
         console.error(err)   

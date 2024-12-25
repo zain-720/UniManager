@@ -13,6 +13,7 @@ const GetNoteData = async(setNoteData, username) =>{
         
         //Set data up
         setNoteData(response.data);
+        return response.data;
 
     }
     catch(err){
