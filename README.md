@@ -1,6 +1,6 @@
 README 
 
-App Installation steps
+**App Installation steps**
 
 1. npm package setup
   a. cd to server then do (npm install)
@@ -70,7 +70,7 @@ App Installation steps
 
   a. Within server/server.js edit the information given to create the db connection, change the password to whatever you choose as your PostgreSQL password
 
-App Usage Guide
+**App Usage Guide**
 
  0. Starting the app
     To run server and webpage do (npm run dev) on directory server and uni-manager to start the server and the react app
@@ -94,7 +94,7 @@ App Usage Guide
      - However for checking off a box for an item which was deleted by a user on the same account, that item will still be deleted.<br>
      - List items cannot be edited while checked off as complete <br>
 
-Component Contruction Documentation
+**Component Contruction Documentation**
 
   App :
 
@@ -111,7 +111,7 @@ Component Contruction Documentation
   2. TodoList:
 
 
-App Database Table Strucutures
+**App Database Table Strucutures**
 
 1. login_data : id, username, password 
 
