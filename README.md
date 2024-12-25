@@ -106,9 +106,9 @@ Component Contruction Documentation
 
   HomePage:
 
-    NoteTaker:
+  1. NoteTaker:
 
-    TodoList:
+  2. TodoList:
 
 
 App Database Table Strucutures
