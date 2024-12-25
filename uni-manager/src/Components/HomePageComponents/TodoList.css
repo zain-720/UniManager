@@ -66,6 +66,9 @@
   transition: background-color 0.2s;
 }
 
+.todo-item.complete {
+  background-color: #dbeafe;
+}
 
 .todo-item.overdue {
   background-color: #fee2e2;
@@ -201,6 +204,7 @@
   border-radius: 4px;
 }
 
+.color-dot.complete { background-color: #dbeafe; }
 .color-dot.overdue { background-color: #fee2e2; }
 .color-dot.urgent { background-color: #ffedd5; }
 .color-dot.upcoming { background-color: #fef3c7; }

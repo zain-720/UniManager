@@ -85,10 +85,14 @@ App Usage Guide
   Is a hub for all the apps current main features listed below
 
   a. Note Taker 
-    Has the ability to create notes, edit them, and delete them while also storing all of them
+    Has the ability to create notes, edit them, and delete them while also storing all of them.
+    - In cases where two users are using note taker on the same account at the same time Note Taker will update whenever an action is performed (adding, saving, deleting, reloading). If one user deletes a note but another user edits and saves that same note, that note is added back in its new edited state
 
   b. Todo List 
-    Function with the ability to store todo messages in a list ordered by closest todo to current date, inputed from the todo list app
+    Function with the ability to store todo messages in a list ordered by closest todo to current date, inputed from the todo list app.
+     - In cases where two users are using todo list on the same account at the same time Todo List will update whenever an action is performed (adding, editing, deleting, reloading). If one user deletes an item but another user edits and saves that same item, that item is added back in its new edited state. 
+     - However for checking off a box for an item which was deleted by a user on the same account, that item will still be deleted.
+     - List items cannot be edited while checked off as complete 
 
 Component Contruction Documentation
 

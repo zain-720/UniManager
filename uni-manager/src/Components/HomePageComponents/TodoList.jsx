@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
+import axios from "axios";
+import { serverURL } from '../../App';
 import { useLocation, useOutletContext, useNavigate } from 'react-router-dom';
 import './TodoList.css';
 import { Pencil, Trash2, Check, X, Plus, Calendar } from 'lucide-react';
 import SaveList from './TodoListComponents/SaveList';
+import GetTodoListData from './TodoListComponents/GetTodoListData';
+import AcquireTodoLock from './TodoListComponents/AcquireTodoLock';
 
 function  TodoList(props){
 
@@ -20,17 +24,26 @@ function  TodoList(props){
     const [editDueDate, setEditDueDate] = useState('');
     
     //Add a new todo into the list
-    const handleAddTodo = () => {
+    const handleAddTodo  = async () => {
         if (newTodo.trim()) {
-            const newItem = {key: todoData.key_number, text: (newTodo.trim()).slice(0, 80), dueDate: newDueDate, completed: false}
-            const updatedTodoItems = insertTodoByDueDate(newItem, todoData.items);
-            const updatedTodoData = {...todoData, items: updatedTodoItems, key_number: (todoData.key_number+1)}
+
+            // Acquire lock for todolist_data
+            await AcquireTodoLock({username : props.username});
+
+            // Acquire the latest todolist_data 
+            const latestTodoData = await GetTodoListData(setTodoData, props.username);
+
+            const newItem = {key: latestTodoData.key_number, text: (newTodo.trim()), dueDate: newDueDate, completed: false}
+            const updatedTodoItems = insertTodoByDueDate(newItem, latestTodoData.items);
+            const updatedTodoData = {...latestTodoData, items: updatedTodoItems, key_number: (latestTodoData.key_number+1)}
             setTodoData(updatedTodoData);
             setNewTodo('');
             setNewDueDate('');
             
             SaveList({username: props.username, todoData: updatedTodoData});
-
+            
+            //Release the lock
+            await axios.post(serverURL + "/releaseTodoLock", { username: props.username });
         }
     };
 
@@ -46,70 +59,134 @@ function  TodoList(props){
         setEditDueDate(todo.dueDate);
     };
 
-    const saveEdit = (key) => {
+    const saveEdit = async (key) => {
 
-        const originalTodo = todoData.items.find(todo => todo.key === key);
+        // Acquire lock for todolist_data
+        await AcquireTodoLock({username : props.username});
 
-        if(editDueDate !== originalTodo.dueDate){ //If date was changed delete old version of the note and add new one
-            const sortedArray = todoData.items.filter(todo => todo.key !== key);
-            const newItem = {key: key, text: (editText.trim()), dueDate: editDueDate, completed: false}
-            const updatedTodoItems = insertTodoByDueDate(newItem, sortedArray);
-            const updatedTodoData = {...todoData, items: updatedTodoItems}
+        // Acquire the latest todolist_data 
+        const latestTodoData = await GetTodoListData(setTodoData, props.username);
+
+        const originalTodo = latestTodoData.items.find(todo => todo.key === key);
+
+        if(!originalTodo){ // Key doesnt exist in list, meaning another user on the account deleted the item of this key
+
+            //add the item back into the list 
+            const newItem = {key: key, text: ((editText.trim())), dueDate: editDueDate, completed: false}
+            const updatedTodoItems = insertTodoByDueDate(newItem, latestTodoData.items);
+            const updatedTodoData = {...latestTodoData, items: updatedTodoItems}
             setTodoData(updatedTodoData);
             setEditingKey(null);
             setEditText('');
             setEditDueDate('');
-
+            
             SaveList({username: props.username, todoData: updatedTodoData});
+            
+            //Release the lock
+            await axios.post(serverURL + "/releaseTodoLock", { username: props.username });
         }
-        else{
-            const updatedTodoItems = todoData.items.map(todo =>
-                todo.key === key ? { ...todo, text: (editText.trim()), dueDate: editDueDate } : todo);
-            const updatedTodoData = {...todoData, items: updatedTodoItems}
-            setTodoData(updatedTodoData);
-            setEditingKey(null);
-            setEditText('');
-            setEditDueDate('');
+        else{ // Item is in latest list
 
-            SaveList({username: props.username, todoData: updatedTodoData});
+            if(editDueDate !== originalTodo.dueDate){ //If date was changed delete old version of the note and add new one
+                const sortedArray = latestTodoData.items.filter(todo => todo.key !== key);
+                const newItem = {key: key, text: (editText.trim()), dueDate: editDueDate, completed: false}
+                const updatedTodoItems = insertTodoByDueDate(newItem, sortedArray);
+                const updatedTodoData = {...latestTodoData, items: updatedTodoItems}
+                setTodoData(updatedTodoData);
+                setEditingKey(null);
+                setEditText('');
+                setEditDueDate('');
+
+                SaveList({username: props.username, todoData: updatedTodoData});
+
+                //Release the lock
+                await axios.post(serverURL + "/releaseTodoLock", { username: props.username });
+            }
+            else{ // No chnage to the date made
+                const updatedTodoItems = latestTodoData.items.map(todo =>
+                    todo.key === key ? { ...todo, text: (editText.trim()), dueDate: editDueDate } : todo);
+                const updatedTodoData = {...latestTodoData, items: updatedTodoItems}
+                setTodoData(updatedTodoData);
+                setEditingKey(null);
+                setEditText('');
+                setEditDueDate('');
+
+                SaveList({username: props.username, todoData: updatedTodoData});
+
+                //Release the lock
+                await axios.post(serverURL + "/releaseTodoLock", { username: props.username });
+            }
         }
-        
     };
 
     const cancelEdit = () => {
-        setEditingId(null);
+        setEditingKey(null);
         setEditText('');
         setEditDueDate('');
     };
 
-    const deleteTodo = (key) => {
-        const updatedTodoItems = todoData.items.filter(todo => todo.key !== key);
-        const updatedTodoData = {...todoData, items: updatedTodoItems}
+    const deleteTodo = async (key) => {
+
+        // Acquire lock for todolist_data
+        await AcquireTodoLock({username : props.username});
+
+        // Acquire the latest todolist_data 
+        const latestTodoData = await GetTodoListData(setTodoData, props.username);
+
+        const updatedTodoItems = latestTodoData.items.filter(todo => todo.key !== key);
+        const updatedTodoData = {...latestTodoData, items: updatedTodoItems}
         setTodoData(updatedTodoData);
 
         SaveList({username: props.username, todoData: updatedTodoData});
 
+        //Release the lock
+        await axios.post(serverURL + "/releaseTodoLock", { username: props.username });
+
     };
 
-    const toggleComplete = (key) => {
-        const updatedTodoItems = todoData.items.map(todo =>
+    const toggleComplete = async (key) => {
+
+        // Acquire lock for todolist_data
+        await AcquireTodoLock({username : props.username});
+
+        // Acquire the latest todolist_data 
+        const latestTodoData = await GetTodoListData(setTodoData, props.username);
+
+        const updatedTodoItems = latestTodoData.items.map(todo =>
         todo.key === key ? { ...todo, completed: !todo.completed } : todo
         )
-        const updatedTodoData = {...todoData, items: updatedTodoItems}
+        const updatedTodoData = {...latestTodoData, items: updatedTodoItems}
         setTodoData(updatedTodoData);
 
         SaveList({username: props.username, todoData: updatedTodoData});
+
+        //Release the lock
+        await axios.post(serverURL + "/releaseTodoLock", { username: props.username });
+
     };
 
-    const clearCompleted = () => {
-        const updatedTodoItems = todoData.items.filter(todo => !todo.completed)
-        const updatedTodoData = {...todoData, items: updatedTodoItems}
+    const clearCompleted = async () => {
+
+        // Acquire lock for todolist_data
+        await AcquireTodoLock({username : props.username});
+
+        // Acquire the latest todolist_data 
+        const latestTodoData = await GetTodoListData(setTodoData, props.username);
+
+        const updatedTodoItems = latestTodoData.items.filter(todo => !todo.completed)
+        const updatedTodoData = {...latestTodoData, items: updatedTodoItems}
         setTodoData(updatedTodoData);
 
         SaveList({username: props.username, todoData: updatedTodoData});
+
+        //Release the lock
+        await axios.post(serverURL + "/releaseTodoLock", { username: props.username });
     };
 
-    const getUrgencyClass = (dueDate) => {
+    const getUrgencyClass = (dueDate, completed) => {
+
+        if(completed == true) return 'complete';
+
         if (!dueDate) return 'no-date';
         const today = new Date();
         const due = new Date(dueDate);
@@ -130,14 +207,6 @@ function  TodoList(props){
         year: 'numeric'
         });
     };
-
-    // Sort todos by due date (null dates at the end)
-    const sortedTodos = [...todoData.items].sort((a, b) => {
-        if (!a.dueDate && !b.dueDate) return 0;
-        if (!a.dueDate) return 1;
-        if (!b.dueDate) return -1;
-        return new Date(a.dueDate) - new Date(b.dueDate);
-    });
 
     const insertTodoByDueDate = (newItem, sortedArray) => {
 
@@ -212,7 +281,7 @@ function  TodoList(props){
             {todoData.items.map(todo => (
             <li
                 key={todo.key}
-                className={`todo-item ${getUrgencyClass(todo.dueDate)}`}
+                className={`todo-item ${getUrgencyClass(todo.dueDate, todo.completed)}`}
             >
                 <input
                 type="checkbox"
@@ -306,6 +375,9 @@ function  TodoList(props){
             </span>
             <span className="legend-item">
                 <div className="color-dot later"></div> Due later
+            </span>
+            <span className="legend-item">
+                <div className="color-dot complete"></div> Complete
             </span>
             </div>
         </div>

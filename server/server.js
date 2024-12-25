@@ -31,8 +31,11 @@ app.use(bodyParser.json()); //parse incoming JSON bodies
 app.use(bodyParser.urlencoded({ extended: true })); //add body parser to the server
 app.use(express.static("public"));
 
-//Reasource lock to prevent race conditions when using noteTaker, key is username, value is the date made
+//Reasource lock to prevent race conditions when using NoteTaker, key is username, value is the date made
 const noteLocks = new Map();
+
+//Reasource lock to prevent race conditions when using TodoList, key is username, value is the date made
+const todoLocks = new Map();
 
 //Post request for attempting to set a lock for username
 app.post('/acquireNoteLock', async (req, res) => {
@@ -56,6 +59,32 @@ app.post('/releaseNoteLock', (req, res) => {
     const { username } = req.body;
     //console.log("released ", noteLocks);
     noteLocks.delete(username);
+    
+    res.json({ message: 'Lock released' });
+});
+
+//Post request for attempting to set a lock for username
+app.post('/acquireTodoLock', async (req, res) => {
+    const { username } = req.body;
+    
+    // Check if this username already has a lock
+    if (todoLocks.has(username)) {
+        // If locked, reject the request
+        res.status(423).json({ message: 'Resource locked' });
+        return;
+    }
+    
+    // If not locked, create a new lock
+    todoLocks.set(username, Date.now());
+    console.log("acquired ", todoLocks);
+    res.status(200).json({ message: 'Lock acquired' });
+});
+
+//Post request for attempting to release a lock for username
+app.post('/releaseTodoLock', (req, res) => {
+    const { username } = req.body;
+    console.log("released ", todoLocks);
+    todoLocks.delete(username);
     
     res.json({ message: 'Lock released' });
 });
@@ -164,7 +193,7 @@ app.get('/requestTodoListData', async (req, res) => {
         const result = await db.query('SELECT * FROM todolist_data WHERE username = $1', [username]);
 
         //retrun the row containing the given users note data
-        //console.log(result.rows[0]);
+        console.log("todo list data ", result.rows[0]);
         res.json(result.rows[0]);
     }
     catch(err) {
