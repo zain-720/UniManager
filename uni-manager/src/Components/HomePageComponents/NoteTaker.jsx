@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useLocation, useOutletContext, useNavigate } from 'react-router-dom';
 import axios from "axios";
-import NoteTakerDisplay from './NoteTakerComponents/NoteTakerDisplay';
 import GetNoteData from './NoteTakerComponents/GetNoteData';
 import SaveNote from './NoteTakerComponents/SaveNote';
 import NoteBox from './NoteTakerComponents/NoteBox';
 import DeleteNote from './NoteTakerComponents/DeleteNote';
+import './NoteTaker.css';
 
 //Protection of pages with login
 function NoteTaker(props){
@@ -80,8 +80,8 @@ function NoteTaker(props){
   else{ //This will run after inital loading of the noteData
     //Output the note taker
     return (
-      <div>
-        <h3>Hi {props.username} Welcome to note taker</h3>
+      <div className='note-taker-container'>
+        <h3>Note Taker app v2</h3>
         <div>
             <div>
                 <select value={currentNoteKey} onChange={(e) => { const selectedOption = (dropDownData.find(note=> note.key === e.target.value))||{newNote: true, title: "", text: "", key: newNoteKey.toString()}; 

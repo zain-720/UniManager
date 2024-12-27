@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import axios from "axios";
+import '../NoteTaker.css'
 
 import TextInput from '../../Ultilities/textInput';
 
@@ -17,21 +18,17 @@ function NoteBox(props){
     };
 
     return (
-
-        <div>
-
-            <div>
+        <div className='note-box'>
+            <div className='name-box'>
                 {props.isNewNote ? <input type="text" value={props.currentNoteName} onChange={handleNameChange} 
-                placeholder="Note Name" maxLength={120} style={{width: '400px' }}/>  : <h3>{props.currentNoteName}</h3>}
+                placeholder="Note Name" maxLength={120}/>  : <h3>{props.currentNoteName}</h3>}
             </div>
-            <div >
+            <div className='text-box'>
                 <textarea 
                 value={props.currentNote}
                 onChange={handleChange}
                 placeholder="Enter note here"
-                rows={20}
-                style={{height: '300px', width: '800px' }}
-                />
+                rows={20}/>
             </div>
         </div>
     );
