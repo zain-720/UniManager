@@ -1,4 +1,4 @@
-.login-page {
+.create-account-page {
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -6,9 +6,9 @@
     overflow: auto
 }
 
-.login-container {
-    width: clamp(200px, 40vw, 500px);    /* 40% of viewport width until 500px */
-    height: clamp(250px, 40vh,250px);    /* 40% of viewport height until 300px */
+.create-account-container {
+    width: clamp(250px, 40vw, 800px);    /* 40% of viewport width until 500px */
+    height: clamp(290px, 40vh,290px);    /* 40% of viewport height until 300px */
     padding: clamp(12px, 2vh, 24px); 
     background-color: white;
     border-radius: 8px;
@@ -16,15 +16,30 @@
     border: 1px solid black;
     display: flex;
     flex-direction: column;
-    gap: clamp(10px, 15px, 20px);
+    gap: clamp(5px, 10px, 15px);
     flex-shrink: 0;    /* Prevents container from shrinking below min size */
 }
 
-.login-container button {
+.create-account-container button {
     padding: 10px 20px;
     border-radius: 4px;
     border: none;
     background-color: #8B6B3D; /* HeartGold background */
     color: white;
     cursor: pointer;
+}
+
+.creation-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(5px, 1vh, 10px);
+    padding: clamp(2px, 1vh, 5px); 
+}
+
+.create-account-container h3 {
+    margin: 2px;
+}
+
+.creation-boxes h4 {
+    margin: 2px;
 }
