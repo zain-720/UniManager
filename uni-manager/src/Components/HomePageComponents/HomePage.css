@@ -2,15 +2,20 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    min-width:720px;
     overflow: auto;
 }
 
 .top-bar {
     background-color: gray;
-    padding: 20px;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
     height: 60px;
+    width: 100%; 
     display: flex;
     align-items: center;  /* Centers items vertically */
+    flex-shrink: 0;
 }
 
 

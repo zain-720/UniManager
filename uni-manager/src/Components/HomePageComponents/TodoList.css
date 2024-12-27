@@ -1,5 +1,6 @@
 .todo-container {
-  max-width: 80%;; /*box width*/
+  max-width: 80%; /*box width*/
+  min-width: 480px;
   height: 90%;
   margin: 0 auto; /*to center*/
   padding: 24px;
@@ -58,8 +59,7 @@
   gap: 12px;
   margin-bottom: 16px;
   overflow: auto;
-  min-height: 60%;
-  max-height: 60%;
+  max-height: 75%;
 }
 
 .todo-item {

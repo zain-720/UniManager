@@ -254,6 +254,28 @@ function  TodoList(props){
 
     return (
         <div className="todo-container">
+        
+        <div className="color-legend">
+            <div className="legend-title">Due Date Colors:</div>
+            <div className="legend-items">
+            <span className="legend-item">
+                <div className="color-dot overdue"></div> Overdue
+            </span>
+            <span className="legend-item">
+                <div className="color-dot urgent"></div> Due in 2 days
+            </span>
+            <span className="legend-item">
+                <div className="color-dot upcoming"></div> Due in 7 days
+            </span>
+            <span className="legend-item">
+                <div className="color-dot later"></div> Due later
+            </span>
+            <span className="legend-item">
+                <div className="color-dot complete"></div> Complete
+            </span>
+            </div>
+        </div>
+        
         <h1 className="todo-title">Todo List</h1>
         
         <div className="todo-input-container">
@@ -360,27 +382,6 @@ function  TodoList(props){
             </button>
             </div>
         )}
-
-        <div className="color-legend">
-            <div className="legend-title">Due Date Colors:</div>
-            <div className="legend-items">
-            <span className="legend-item">
-                <div className="color-dot overdue"></div> Overdue
-            </span>
-            <span className="legend-item">
-                <div className="color-dot urgent"></div> Due in 2 days
-            </span>
-            <span className="legend-item">
-                <div className="color-dot upcoming"></div> Due in 7 days
-            </span>
-            <span className="legend-item">
-                <div className="color-dot later"></div> Due later
-            </span>
-            <span className="legend-item">
-                <div className="color-dot complete"></div> Complete
-            </span>
-            </div>
-        </div>
         </div>
     );
 
