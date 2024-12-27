@@ -59,7 +59,8 @@
   gap: 12px;
   margin-bottom: 16px;
   overflow: auto;
-  max-height: 75%;
+  height: 50vh;
+  contain: content;
 }
 
 .todo-item {

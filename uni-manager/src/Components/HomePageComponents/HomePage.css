@@ -47,8 +47,14 @@ button {
 
 .bottom-bar {
     background-color: gray;
-    padding: 20px;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
     height: 60px;
+    width: 100%; 
+    display: flex;
+    align-items: center;  /* Centers items vertically */
+    flex-shrink: 0;
 }
 
 .middle-content {
@@ -64,6 +70,7 @@ button {
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
+    
 }
 
 .side-area {
