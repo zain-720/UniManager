@@ -1,0 +1,53 @@
+
+.welcome-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto
+}
+
+.welcome-container {
+    width: clamp(180px, 40vw, 500px);    /* 40% of viewport width until 500px */
+    height: clamp(200px, 40vh,300px);    /* 40% of viewport height until 300px */
+    padding: clamp(12px, 2vh, 24px); 
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(10px, 15px, 20px);
+    flex-shrink: 0;    /* Prevents container from shrinking below min size */
+}
+
+
+.text-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 2; 
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    row-gap: clamp(10px, 20vh, 20px);
+    column-gap: clamp(10px, 20vh, 60px);
+    flex: 2; 
+}
+
+.button-container button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #8B6B3D; /* HeartGold background */
+    color: white;
+    cursor: pointer;
+}
+
+.button-container button:hover {
+    background-color: #735936; /* Darker heartgold */
+}

@@ -10,7 +10,7 @@ import HandleLoggedOut from './Components/Ultilities/HandleLoggedOut';
 import NoteTaker from './Components/HomePageComponents/NoteTaker';
 import TodoList from './Components/HomePageComponents/TodoList';
 
-//import './App.css';
+import './App.css';
 import axios from "axios";
 const serverURL = "http://localhost:3000";
 

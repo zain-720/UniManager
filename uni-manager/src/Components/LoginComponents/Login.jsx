@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import TextInput from '../Ultilities/textInput';
 import RequestLogin from './RequestLogin';
 import NavigationButton from '../Ultilities/NavigationButton';
+import './Login.css';
 
 
 function Login(props) {
@@ -14,17 +15,16 @@ function Login(props) {
 
     return (
 
-        <div>
-            <div>
-                {!loginResult && <h3>Username or password was incorrect try again</h3>}
+        <div className='login-page'>
+            <div className='login-container'>
+                {!loginResult ? <h3>Username or password was incorrect try again</h3> : <h3></h3>}
                 <TextInput type="text" placeholder="Username" func={props.setUsername} value={username}/>
                 <TextInput type="password" placeholder="Password" func={setUserPassword} value={userPassword}/>
                 <RequestLogin username={username} password={userPassword} func={setLoginResult} funcPass={setUserPassword} funcUser={props.setUsername} login={props.login}/>
-                <h2>{props.username}</h2>
-                <h2>{userPassword}</h2>
+                <NavigationButton route={'/'} text={"Cancel"}/>
             </div>
             
-            <NavigationButton route={'/'} text={"Cancel"}/>
+            
 
         </div>
     );
