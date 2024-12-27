@@ -166,6 +166,8 @@
   align-items: center;
   font-size: 14px;
   color: #4b5563;
+  gap: 8px;
+  padding: 12px;
 }
 
 .clear-button {

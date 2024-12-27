@@ -255,133 +255,134 @@ function  TodoList(props){
     return (
         <div className="todo-container">
         
-        <div className="color-legend">
-            <div className="legend-title">Due Date Colors:</div>
-            <div className="legend-items">
-            <span className="legend-item">
-                <div className="color-dot overdue"></div> Overdue
-            </span>
-            <span className="legend-item">
-                <div className="color-dot urgent"></div> Due in 2 days
-            </span>
-            <span className="legend-item">
-                <div className="color-dot upcoming"></div> Due in 7 days
-            </span>
-            <span className="legend-item">
-                <div className="color-dot later"></div> Due later
-            </span>
-            <span className="legend-item">
-                <div className="color-dot complete"></div> Complete
-            </span>
+            <div className="color-legend">
+                <div className="legend-title">Due Date Colors:</div>
+                <div className="legend-items">
+                <span className="legend-item">
+                    <div className="color-dot overdue"></div> Overdue
+                </span>
+                <span className="legend-item">
+                    <div className="color-dot urgent"></div> Due in 2 days
+                </span>
+                <span className="legend-item">
+                    <div className="color-dot upcoming"></div> Due in 7 days
+                </span>
+                <span className="legend-item">
+                    <div className="color-dot later"></div> Due later
+                </span>
+                <span className="legend-item">
+                    <div className="color-dot complete"></div> Complete
+                </span>
+                </div>
             </div>
-        </div>
-        
-        <h1 className="todo-title">Todo List</h1>
-        
-        <div className="todo-input-container">
-            <input
-            type="text"
-            value={newTodo}
-            onChange={(e) => setNewTodo(e.target.value)}
-            onKeyDown={handleKeyPress}
-            placeholder="Add a new todo"
-            className="todo-input"
-            />
-            <input
-            type="date"
-            value={newDueDate}
-            onChange={(e) => setNewDueDate(e.target.value)}
-            className="todo-input"
-            />
-            <button onClick={handleAddTodo} className="add-button">
-            <Plus size={16} />
-            Add
-            </button>
-        </div>
 
-        <ul className="todo-list">
-            {todoData.items.map(todo => (
-            <li
-                key={todo.key}
-                className={`todo-item ${getUrgencyClass(todo.dueDate, todo.completed)}`}
-            >
+            <h1 className="todo-title">Todo List</h1>
+            
+            <div className="todo-input-container">
                 <input
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => toggleComplete(todo.key)}
-                className="todo-checkbox"
+                type="text"
+                value={newTodo}
+                onChange={(e) => setNewTodo(e.target.value)}
+                onKeyDown={handleKeyPress}
+                placeholder="Add a new todo"
+                className="todo-input"
                 />
-                {editingKey === todo.key ? (
-                <>
-                    <input
-                    type="text"
-                    value={editText}
-                    onChange={(e) => setEditText(e.target.value)}
-                    className="todo-input"
-                    autoFocus
-                    />
-                    <input
-                    type="date"
-                    value={editDueDate}
-                    onChange={(e) => setEditDueDate(e.target.value)}
-                    className="todo-input"
-                    />
-                    <button
-                    onClick={() => saveEdit(todo.key)}
-                    className="icon-button"
-                    >
-                    <Check size={16} />
-                    </button>
-                    <button
-                    onClick={cancelEdit}
-                    className="icon-button delete"
-                    >
-                    <X size={16} />
-                    </button>
-                </>
-                ) : (
-                <>
-                    <span className={`todo-text ${todo.completed ? 'completed' : ''}`}>
-                        {todo.text}
-                    </span>
-                    {todo.dueDate && (
-                    <span className="todo-date">
-                        <Calendar size={14} />
-                        {formatDate(todo.dueDate)}
-                    </span>
-                    )}
-                    <div className="todo-actions">
-                    <button
-                        onClick={() => startEditing(todo)}
-                        className="icon-button edit"
-                        disabled={todo.completed}
-                    >
-                        <Pencil size={16} />
-                    </button>
-                    <button
-                        onClick={() => deleteTodo(todo.key)}
-                        className="icon-button delete"
-                    >
-                        <Trash2 size={16} />
-                    </button>
-                    </div>
-                </>
-                )}
-            </li>
-            ))}
-        </ul>
-
-        {completedCount > 0 && (
-            <div className="clear-completed">
-            <span>{completedCount} completed {completedCount === 1 ? 'item' : 'items'}</span>
-            <button
-                onClick={clearCompleted}
-                className="clear-button"
-            >
-                Clear Completed
-            </button>
+                <input
+                type="date"
+                value={newDueDate}
+                onChange={(e) => setNewDueDate(e.target.value)}
+                className="todo-input"
+                />
+                <button onClick={handleAddTodo} className="add-button">
+                <Plus size={16} />
+                Add
+                </button>
             </div>
-        )}
+
+            {completedCount > 0 && (
+                <div className="clear-completed">
+                <span>{completedCount} completed {completedCount === 1 ? 'item' : 'items'}</span>
+                <button
+                    onClick={clearCompleted}
+                    className="clear-button"
+                >
+                    Clear Completed
+                </button>
+                </div>
+            )}
+
+            <ul className="todo-list">
+                {todoData.items.map(todo => (
+                <li
+                    key={todo.key}
+                    className={`todo-item ${getUrgencyClass(todo.dueDate, todo.completed)}`}
+                >
+                    <input
+                    type="checkbox"
+                    checked={todo.completed}
+                    onChange={() => toggleComplete(todo.key)}
+                    className="todo-checkbox"
+                    />
+                    {editingKey === todo.key ? (
+                    <>
+                        <input
+                        type="text"
+                        value={editText}
+                        onChange={(e) => setEditText(e.target.value)}
+                        className="todo-input"
+                        autoFocus
+                        />
+                        <input
+                        type="date"
+                        value={editDueDate}
+                        onChange={(e) => setEditDueDate(e.target.value)}
+                        className="todo-input"
+                        />
+                        <button
+                        onClick={() => saveEdit(todo.key)}
+                        className="icon-button"
+                        >
+                        <Check size={16} />
+                        </button>
+                        <button
+                        onClick={cancelEdit}
+                        className="icon-button delete"
+                        >
+                        <X size={16} />
+                        </button>
+                    </>
+                    ) : (
+                    <>
+                        <span className={`todo-text ${todo.completed ? 'completed' : ''}`}>
+                            {todo.text}
+                        </span>
+                        {todo.dueDate && (
+                        <span className="todo-date">
+                            <Calendar size={14} />
+                            {formatDate(todo.dueDate)}
+                        </span>
+                        )}
+                        <div className="todo-actions">
+                        <button
+                            onClick={() => startEditing(todo)}
+                            className="icon-button edit"
+                            disabled={todo.completed}
+                        >
+                            <Pencil size={16} />
+                        </button>
+                        <button
+                            onClick={() => deleteTodo(todo.key)}
+                            className="icon-button delete"
+                        >
+                            <Trash2 size={16} />
+                        </button>
+                        </div>
+                    </>
+                    )}
+                </li>
+                ))}
+            </ul>
+
         </div>
     );
 
