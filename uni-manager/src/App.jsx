@@ -9,6 +9,7 @@ import ProtectedRoute from './Components/Ultilities/ProtectedRoute';
 import HandleLoggedOut from './Components/Ultilities/HandleLoggedOut';
 import NoteTaker from './Components/HomePageComponents/NoteTaker';
 import TodoList from './Components/HomePageComponents/TodoList';
+import NotFound from './Components/Ultilities/PageNotFound';
 
 import './App.css';
 import axios from "axios";
@@ -46,11 +47,11 @@ function App() {
                 <Route path="/" element={<Welcome />}/>
                 <Route path="/login" element={<Login login={login} setUsername={setUsername} username={username}/>}/>
                 <Route path="/create-account" element={<CreateUser />}/>
-                <Route path="/home-page" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<HomePage logout={logout} username={username}/>} handleLoggedOut={<HandleLoggedOut/>}  />}>
+                <Route path="/home-page/*" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<HomePage logout={logout} username={username}/>} handleLoggedOut={<HandleLoggedOut/>}  />}>
                   <Route path="note-taker" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<NoteTaker username={username}/>} handleLoggedOut={<HandleLoggedOut/>} />}/>
                   <Route path="todo-list" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<TodoList username={username}/>} handleLoggedOut={<HandleLoggedOut/>} />}/>
                 </Route>
-
+                <Route path="*" element={<NotFound />} />
             </Routes>
         </Router>
     </>
