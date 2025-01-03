@@ -83,28 +83,26 @@ function NoteTaker(props){
       <div className='note-taker-container'>
         <h3>Note Taker app v2</h3>
         <div>
-            <div>
-                <select value={currentNoteKey} onChange={(e) => { const selectedOption = (dropDownData.find(note=> note.key === e.target.value))||{newNote: true, title: "", text: "", key: newNoteKey.toString()}; 
-                handleSelect(
-                  JSON.stringify({
-                    newNote: selectedOption.newNote,
-                    title: selectedOption.title,
-                    text: selectedOption.text,
-                    key: selectedOption.key
-                })
-                ); }}>
-                    <option value={newNoteKey.toString()}>New Note</option>
+            <select value={currentNoteKey} onChange={(e) => { const selectedOption = (dropDownData.find(note=> note.key === e.target.value))||{newNote: true, title: "", text: "", key: newNoteKey.toString()}; 
+            handleSelect(
+              JSON.stringify({
+                newNote: selectedOption.newNote,
+                title: selectedOption.title,
+                text: selectedOption.text,
+                key: selectedOption.key
+            })
+            ); }}>
+                <option value={newNoteKey.toString()}>New Note</option>
 
-                    {(dropDownData.length > 0) && dropDownData.map((noteInfo) =>{
-                        return <option key={noteInfo.key} value={noteInfo.key}>{noteInfo.title}</option>
-                    }) }
-                </select>
-            </div>
-            <div>
-                {isNameEmpty && <h4>Note name cannot be empty!</h4>}
-                <NoteBox currentNote={currentNote} setCurrentNote={setCurrentNote} isNewNote={isNewNote} 
-                currentNoteName={currentNoteName} setCurrentNoteName={setCurrentNoteName} />
-            </div>
+                {(dropDownData.length > 0) && dropDownData.map((noteInfo) =>{
+                    return <option key={noteInfo.key} value={noteInfo.key}>{noteInfo.title}</option>
+                }) }
+            </select>
+        </div>
+        <div>
+            {isNameEmpty && <h4>Note name cannot be empty!</h4>}
+            <NoteBox currentNote={currentNote} setCurrentNote={setCurrentNote} isNewNote={isNewNote} 
+            currentNoteName={currentNoteName} setCurrentNoteName={setCurrentNoteName} />
         </div>
         <button onClick={handleSave}>Save Note</button>
         {!isNewNote && <button onClick={handleDelete}>Delete Note</button>}
