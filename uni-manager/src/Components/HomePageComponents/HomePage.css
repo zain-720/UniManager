@@ -1,0 +1,81 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width:720px;
+    overflow: auto;
+}
+
+.top-bar {
+    background-color: gray;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    height: 60px;
+    width: 100%; 
+    display: flex;
+    align-items: center;  /* Centers items vertically */
+    flex-shrink: 0;
+}
+
+
+.top-bar-grid {
+    display: grid;
+    grid-template-columns: 4fr 1fr;  /* 4:1 ratio - main area takes 80%, side area takes 20% */
+    align-items: center;     /* Centers items vertically */
+    gap: 20px;
+    flex: 1;
+}
+
+.top-bar-main-app-grid {
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(6, auto);  /* Creates 6 columns that size to content */
+    justify-content: start;  /* Aligns grid items from the start (left) */
+    align-items: center;     /* Centers items vertically */
+    gap: 20px;              /* Space between grid items */
+}
+
+button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #8B6B3D; /* HeartGold background */
+    color: white;
+    cursor: pointer;
+}
+
+.bottom-bar {
+    background-color: gray;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    height: 60px;
+    width: 100%; 
+    display: flex;
+    align-items: center;  /* Centers items vertically */
+    flex-shrink: 0;
+}
+
+.middle-content {
+    display: grid;
+    grid-template-columns: 4fr 1fr;  /* 4:1 ratio - main area takes 80%, side area takes 20% */
+    gap: 20px;
+    flex: 1;  /* Takes up remaining space between top and bottom bars */
+    padding: 20px;
+}
+
+.main-area {
+    /* background-color: #ffffff; */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    
+}
+
+.side-area {
+    /* background-color: #ffffff; */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
