@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import TextInput from '../Ultilities/textInput';
+import TextInput from '../Ultilities/TextInput';
 import RequestCreation from './RequestCreation';
 import NavigationButton from '../Ultilities/NavigationButton';
 import './CreateAccount.css'
