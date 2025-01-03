@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import axios from "axios";
 import '../NoteTaker.css'
 
-import TextInput from '../../Ultilities/textInput';
+import TextInput from '../../Ultilities/TextInput';
 
 
 //Protection of pages with login
