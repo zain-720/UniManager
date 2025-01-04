@@ -13,14 +13,14 @@ import NotFound from './Components/Ultilities/PageNotFound';
 
 import './App.css';
 import axios from "axios";
-const serverURL = import.meta.env.VITE_MY_API_KEY;
+const serverURL = import.meta.env.VITE_MY_SERVER_KEY;
 
 // Login authentication state
 
 function App() {
   
   // Important useStates
-
+  console.log(serverURL);
   // Create protection for pages onyl useable by logged in users
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const login = () => {
