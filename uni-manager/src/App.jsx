@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import dotenv from 'dotenv'
 
 import Welcome from './Components/WelcomePageComponents/WelcomeScreen';
 import Login from './Components/LoginComponents/Login';
@@ -14,8 +13,7 @@ import NotFound from './Components/Ultilities/PageNotFound';
 
 import './App.css';
 import axios from "axios";
-dotenv.config()
-const serverURL = process.env.SERVER_ADDR;
+const serverURL = import.meta.env.VITE_MY_API_KEY;
 
 // Login authentication state
 
