@@ -19,7 +19,7 @@ README
     make table of the name "login_table" :
     CREATE TABLE login_data(
       id SERIAL PRIMARY KEY,
-      username TEXT UNQIUE NOT NULL,
+      username TEXT UNIQUE NOT NULL,
       password TEXT NOT NULL
     );
 

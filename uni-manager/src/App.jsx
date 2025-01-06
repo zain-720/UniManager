@@ -20,7 +20,6 @@ const serverURL = import.meta.env.VITE_MY_SERVER_KEY;
 function App() {
   
   // Important useStates
-  console.log(serverURL);
   // Create protection for pages onyl useable by logged in users
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const login = () => {
