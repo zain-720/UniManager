@@ -9,6 +9,9 @@ import './HomePage.css';
 //Utility imports 
 import NavigationButton from '../Ultilities/NavigationButton';
 
+//TodoList Imports 
+import UpcomingDeadlines from './TodoListComponents/UpcomingDeadlines';
+
 
 
 
@@ -64,7 +67,7 @@ function HomePage(props) {
                     <button onClick={handleTodoList}>Todo List</button>
                 </div>
                 <div>
-                    <h4>Coming soon...</h4>
+                    <h4></h4>
                 </div>
             </div>    
         </div>
@@ -76,7 +79,11 @@ function HomePage(props) {
                 {location.pathname === '/home-page/todo-list' && <Outlet context={[todoData, setTodoData, loading, setLoading ]}/>}
             </div>
             <div className='side-area'>
-                <h4>To be added soon...</h4>
+                <UpcomingDeadlines 
+                    todoData={todoData} 
+                    setTodoData={setTodoData}
+                    username={props.username}
+                />
             </div>
             
             

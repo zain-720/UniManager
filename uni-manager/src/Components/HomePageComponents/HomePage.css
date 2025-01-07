@@ -36,7 +36,7 @@
     gap: 20px;              /* Space between grid items */
 }
 
-.home-page button {
+.top-bar button {
     padding: 10px 20px;
     border-radius: 4px;
     border: none;
@@ -55,6 +55,15 @@
     display: flex;
     align-items: center;  /* Centers items vertically */
     flex-shrink: 0;
+}
+
+.bottom-bar button {
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    background-color: #8B6B3D; /* HeartGold background */
+    color: white;
+    cursor: pointer;
 }
 
 .middle-content {
