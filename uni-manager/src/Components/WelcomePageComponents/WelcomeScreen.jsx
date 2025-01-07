@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import './WelcomeScreen.css';
 
@@ -21,7 +22,7 @@ function WelcomeScreen() {
                     <button onClick={() => navigate('/create-account')}>Create Account</button>     
                 </div>
                 <div className="disclaimer-box">
-                    <a href="/disclaimer"><h3>Disclaimer</h3></a>
+                    <Link to="/disclaimer"><h3>Disclaimer</h3></Link>
                 </div>
                  
             </div>
