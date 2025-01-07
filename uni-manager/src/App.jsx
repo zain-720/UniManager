@@ -10,8 +10,9 @@ import HandleLoggedOut from './Components/Ultilities/HandleLoggedOut';
 import NoteTaker from './Components/HomePageComponents/NoteTaker';
 import TodoList from './Components/HomePageComponents/TodoList';
 import NotFound from './Components/Ultilities/PageNotFound';
+import DisclaimerPage from './Components/WelcomePageComponents/DisclaimerPage';
 
-import './App.css';
+//import './App.css';
 import axios from "axios";
 const serverURL = import.meta.env.VITE_MY_SERVER_KEY;
 
@@ -34,6 +35,24 @@ function App() {
   const [username, setUsername] = useState("");
 
 
+  //Warmup the server (For Render free plan hosted server)
+  useEffect(() => {
+    // Send a simple ping when the app loads
+    const warmupServer = async () => {
+      try {
+        await axios.get(serverURL +"/ping");
+        console.log('Server pinged');
+      } catch (error) {
+        // Ignore errors since this is just a warmup
+        console.log('Warmup request sent');
+      }
+    };
+    
+    warmupServer();
+  }, []);
+
+
+
   //Setup route connections between pages.
   return (
     <>
@@ -44,9 +63,10 @@ function App() {
         }}>
             <Routes>
                 <Route path="/" element={<Welcome />}/>
+                <Route path="/disclaimer" element={<DisclaimerPage />}/>
                 <Route path="/login" element={<Login login={login} setUsername={setUsername} username={username}/>}/>
                 <Route path="/create-account" element={<CreateUser />}/>
-                <Route path="/home-page/*" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<HomePage logout={logout} username={username}/>} handleLoggedOut={<HandleLoggedOut/>}  />}>
+                <Route path="/home-page/" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<HomePage logout={logout} username={username}/>} handleLoggedOut={<HandleLoggedOut/>}  />}>
                   <Route path="note-taker" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<NoteTaker username={username}/>} handleLoggedOut={<HandleLoggedOut/>} />}/>
                   <Route path="todo-list" element={<ProtectedRoute isAuthenticated={isAuthenticated} passRoute={<TodoList username={username}/>} handleLoggedOut={<HandleLoggedOut/>} />}/>
                 </Route>

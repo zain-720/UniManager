@@ -9,7 +9,7 @@
 
 .welcome-container {
     width: clamp(180px, 40vw, 500px);    /* 40% of viewport width until 500px */
-    height: clamp(200px, 40vh,300px);    /* 40% of viewport height until 300px */
+    height: clamp(250px, 40vh,300px);    /* 40% of viewport height until 300px */
     padding: clamp(12px, 2vh, 24px); 
     background-color: white;
     border-radius: 8px;
@@ -29,6 +29,29 @@
     flex: 2; 
 }
 
+.disclaimer-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 0; 
+}
+
+.disclaimer-box a {
+    color: black;  /* or any color you prefer */
+    text-decoration: none;  /* removes underline */
+    cursor: pointer;
+}
+
+.disclaimer-box a:hover {
+    text-decoration: underline;  
+}
+
+.disclaimer-box a:visited {
+    text-decoration: none; 
+    color: inherit; 
+    cursor: pointer;
+}
+
 .button-container {
     display: flex;
     flex-wrap: wrap;
@@ -39,7 +62,7 @@
     flex: 2; 
 }
 
-.button-container button {
+.welcome-page button {
     padding: 10px 20px;
     border-radius: 4px;
     border: none;

@@ -36,7 +36,7 @@
     gap: 20px;              /* Space between grid items */
 }
 
-button {
+.home-page button {
     padding: 10px 20px;
     border-radius: 4px;
     border: none;
