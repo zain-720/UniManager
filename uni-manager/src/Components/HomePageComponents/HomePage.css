@@ -72,19 +72,35 @@
     gap: 20px;
     flex: 1;  /* Takes up remaining space between top and bottom bars */
     padding: 20px;
+    max-height: 80%;
 }
 
 .main-area {
-    /* background-color: #ffffff; */
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
     
+    
 }
 
 .side-area {
-    /* background-color: #ffffff; */
+    
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-area-top {
+    height: 80%;
+    max-height: 80%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.side-area-bottom {
+    height: 20%;
+    max-height: 20%;
+    border-radius: 8px;
 }

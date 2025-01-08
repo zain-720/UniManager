@@ -69,6 +69,32 @@ README
         FOR EACH ROW
         EXECUTE FUNCTION create_todolist_data(); 
 
+    
+    make table of the name schedule_data :
+    CREATE TABLE schedule_data (
+    id INTEGER PRIMARY KEY REFERENCES login_data(id),
+    username TEXT REFERENCES login_data(username),
+    schedule JSONB[] DEFAULT ARRAY['[]'::jsonb, '[]'::jsonb, '[]'::jsonb, '[]'::jsonb, '[]'::jsonb, '[]'::jsonb, '[]'::jsonb],
+    key_number INTEGER
+    );
+
+    Create a Trigger Function to auto update schedule-data table when a new item is added :
+    CREATE FUNCTION create_schedule_data()
+    RETURNS TRIGGER AS $$
+    BEGIN
+        INSERT INTO schedule_data (id, username, schedule, key_number)
+        VALUES (NEW.id, NEW.username, ARRAY[]::JSONB[], 0);
+        RETURN NEW;
+    END;
+    $$ LANGUAGE plpgsql;
+
+    CREATE TRIGGER after_login_insert3
+        AFTER INSERT ON login_data
+        FOR EACH ROW
+        EXECUTE FUNCTION create_schedule_data(); 
+
+
+
 3. Internal setup process
 
   a. Within server/server.js edit the information given to create the db connection, change the password to whatever you choose as your PostgreSQL password
@@ -121,3 +147,5 @@ README
 2. note_data : referenced from login_data(id, username), noteArray[{key, title, content}], key_number 
 
 3. todolist_data : referenced from login_data(id, username), items[{key, item, due_date, completed}], key_number
+
+4. schedule_data : referenced from login_data(id, username), schedule[day[{key, task, location, start_time, end_time, dayIndex}]], key_number
