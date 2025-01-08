@@ -111,6 +111,7 @@ const CurrentEvent = ({ scheduleData, setScheduleData, username }) => {
 
     if (!currentTask && !nextTask) {
         return (
+            <div className="current-task-container">
                 <div className="no-task-card">
                     <Clock className="clock-icon" />
                     <div className="no-task-content">
@@ -118,7 +119,7 @@ const CurrentEvent = ({ scheduleData, setScheduleData, username }) => {
                         <p>Free Time</p>
                     </div>
                 </div>
-            
+            </div>
         );
     }
     //{nextTask && renderTaskCard(nextTask, "Next Task")} Incoperate next task space in future update
