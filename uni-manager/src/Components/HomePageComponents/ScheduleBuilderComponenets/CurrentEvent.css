@@ -17,6 +17,10 @@
     height: 100%; 
 }
 
+.no-task-content {
+    margin-left: 0.5rem;
+}
+
 .current-task-container .task-card {
     background: white;
     border-radius: 8px;   
@@ -50,6 +54,14 @@
     height: 1.5rem;
     margin-right: 0.75rem;
     margin-top: 0.2rem;
+    color: #3b82f6;
+}
+
+.no-task-content .clock-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.75rem;
+    margin-top: 0.5rem;
     color: #3b82f6;
 }
 

@@ -113,9 +113,10 @@ const CurrentEvent = ({ scheduleData, setScheduleData, username }) => {
         return (
             <div className="current-task-container">
                 <div className="no-task-card">
-                    <Clock className="clock-icon" />
+                    
                     <div className="no-task-content">
-                        <h3>No Current Task</h3>
+                        <Clock className="clock-icon" />
+                        <h3>No Upcoming Tasks For Today</h3>
                         <p>Free Time</p>
                     </div>
                 </div>
@@ -124,7 +125,7 @@ const CurrentEvent = ({ scheduleData, setScheduleData, username }) => {
     }
     else if(nextTask && !currentTask){
         return (<div className="current-task-container">
-            {nextTask && renderTaskCard(nextTask, "Next Task")}
+            {nextTask && renderTaskCard(nextTask, "Next Task For Today")}
             
 
             {/* Text Detail Modal */}
