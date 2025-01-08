@@ -122,6 +122,33 @@ const CurrentEvent = ({ scheduleData, setScheduleData, username }) => {
             </div>
         );
     }
+    else if(nextTask && !currentTask){
+        return (<div className="current-task-container">
+            {nextTask && renderTaskCard(nextTask, "Next Task")}
+            
+
+            {/* Text Detail Modal */}
+            {showModal && (
+                <div className="modal-overlay" onClick={() => setShowModal(false)}>
+                    <div className="modal-content" onClick={e => e.stopPropagation()}>
+                        <div className="modal-header">
+                            <h3>{modalContent.title}</h3>
+                            <button 
+                                className="close-button"
+                                onClick={() => setShowModal(false)}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <p>{modalContent.content}</p>
+                            
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>);
+    }
     //{nextTask && renderTaskCard(nextTask, "Next Task")} Incoperate next task space in future update
     return (
         <div className="current-task-container">

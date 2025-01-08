@@ -1,6 +1,6 @@
 README 
 
-**App Installation steps**
+**Personal App Installation steps**
 
 1. npm package setup
   a. cd to server then do (npm install)
@@ -122,6 +122,11 @@ README
      - In cases where two users are using todo list on the same account at the same time Todo List will update whenever an action is performed (adding, editing, deleting, reloading). If one user deletes an item but another user edits and saves that same item, that item is added back in its new edited state. <br>
      - However for checking off a box for an item which was deleted by a user on the same account, that item will still be deleted.<br>
      - List items cannot be edited while checked off as complete <br>
+     - On homepage on the right side there is a display with up to of ten the most upcoming/overdue deadlines, to read each box better click on them to open popup  <br>
+
+  c. Schedule Builder 
+    Function with the ability to doucment a weekly task schedule for a student for every day of the week hour by hour. Task deletion is done by pressing on the day where the task is occuring, scrolling to the task and pressing the red trash can to remove the task. Tasks cannot overlap eachother, tasks are layed out by hours, the start time of a task cannot happen before the end timeof a task. <br>
+    - On homepage on the right side there is a display with the current task, if there is no current task it will display the next closest task, if none exists it displays free time. To view in detail the task and location, click on them to open a pop up with their information <br>
 
 **Component Contruction Documentation**
 
