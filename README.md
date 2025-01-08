@@ -126,7 +126,7 @@ README
 
   c. Schedule Builder 
     Function with the ability to doucment a weekly task schedule for a student for every day of the week hour by hour. Task deletion is done by pressing on the day where the task is occuring, scrolling to the task and pressing the red trash can to remove the task. Tasks cannot overlap eachother, tasks are layed out by hours, the start time of a task cannot happen before the end timeof a task. <br>
-    - On homepage on the right side there is a display with the current task, if there is no current task it will display the next closest task, if none exists it displays free time. To view in detail the task and location, click on them to open a pop up with their information <br>
+    - On homepage on the right side there is a display with the current task, if there is no current task it will display the next closest task, if none exists it displays free time. To view in detail the task and location, click on them to open a pop up with their information. Display will look to update every 10 seconds <br>
 
 **Component Contruction Documentation**
 

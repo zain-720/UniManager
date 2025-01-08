@@ -70,7 +70,7 @@ const CurrentEvent = ({ scheduleData, setScheduleData, username }) => {
                 const latestScheduleData = await GetScheduleData(setScheduleData, username);
 
                 findCurrentAndNextTask(latestScheduleData);
-            }, 60000);
+            }, 10000);
 
             return () => clearInterval(timer);
     }, []);
