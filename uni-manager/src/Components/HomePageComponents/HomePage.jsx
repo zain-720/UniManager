@@ -86,33 +86,35 @@ function HomePage(props) {
         {/* Display app buttons here */}
         <div className='top-bar'>
             {width ? 
-            (<div className="small-menu-container-grid">
-                {smallerWidth && (<h1>Welcome</h1>)}
-                <button 
-                    className="menu-button"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    <Menu size={24} />
-                </button>
-                
-                {isOpen && (
-                    <div className="dropdown-menu">
-                        <button onClick={() => {
-                            setIsOpen(false);
-                            handleFunctionStart(GetNoteData, setNoteData, '/home-page/note-taker');
-                        }}>Note Taker</button>
+            (<div className="top-bar-grid">
+                <div className="small-menu-header">
+                    {smallerWidth && (<h1>Welcome</h1>)}
+                    <button 
+                        className="menu-button"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <Menu size={24} />
+                    </button>
+                    
+                    {isOpen && (
+                        <div className="dropdown-menu">
+                            <button onClick={() => {
+                                setIsOpen(false);
+                                handleFunctionStart(GetNoteData, setNoteData, '/home-page/note-taker');
+                            }}>Note Taker</button>
 
-                        <button onClick={() => {
-                            setIsOpen(false);
-                            handleFunctionStart(GetTodoListData, setTodoData, '/home-page/todo-list');
-                        }}>Todo List</button>
-                        
-                        <button onClick={() => {
-                            setIsOpen(false);
-                            handleFunctionStart(GetScheduleData, setScheduleData, '/home-page/schedule-builder');
-                        }}>Weekly Schedule</button>
-                    </div>
-                )}
+                            <button onClick={() => {
+                                setIsOpen(false);
+                                handleFunctionStart(GetTodoListData, setTodoData, '/home-page/todo-list');
+                            }}>Todo List</button>
+                            
+                            <button onClick={() => {
+                                setIsOpen(false);
+                                handleFunctionStart(GetScheduleData, setScheduleData, '/home-page/schedule-builder');
+                            }}>Weekly Schedule</button>
+                        </div>
+                    )}
+                </div>
             </div>
             ) 
             : 
