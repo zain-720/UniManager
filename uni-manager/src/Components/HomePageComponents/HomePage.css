@@ -104,7 +104,8 @@
     border-radius: 8px;
     padding: 20px;
     display: flex;
-    flex-direction: column;  
+    flex-direction: column; 
+    min-height:700px; 
 }
 
 .side-area-top {
