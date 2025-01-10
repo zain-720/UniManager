@@ -22,7 +22,7 @@ function WelcomeScreen() {
                     <button onClick={() => navigate('/create-account')}>Create Account</button>     
                 </div>
                 <div className="disclaimer-box">
-                    <Link to="/disclaimer"><h3>Disclaimer</h3></Link>
+                    <Link to="/disclaimer" className="link"><h4><span>Disclaimer</span> <span>PLEASE READ</span></h4></Link>
                 </div>
                  
             </div>

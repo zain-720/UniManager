@@ -36,17 +36,29 @@
     flex: 0; 
 }
 
-.disclaimer-box a {
-    color: black;  /* or any color you prefer */
-    text-decoration: none;  /* removes underline */
+.disclaimer-box .link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
     cursor: pointer;
 }
 
-.disclaimer-box a:hover {
+.disclaimer-box .link h4 {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.disclaimer-box .link:hover {
     text-decoration: underline;  
 }
 
-.disclaimer-box a:visited {
+.disclaimer-box .link:visited {
     text-decoration: none; 
     color: inherit; 
     cursor: pointer;
