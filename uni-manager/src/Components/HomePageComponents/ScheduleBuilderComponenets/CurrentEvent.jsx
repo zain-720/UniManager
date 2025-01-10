@@ -94,13 +94,13 @@ const CurrentEvent = ({ scheduleData, setScheduleData, username }) => {
                     {task.task}
                 </h2>
                 {task.location && (
-                    <p 
-                        className="location truncate-text"
+                    <div
+                        className="location"
                         onClick={() => handleTextClick('Location', task.location)}
                     >
                         <MapPin className="location-icon" />
-                        {task.location}
-                    </p>
+                        <span class="location-text">{task.location}</span>
+                    </div>
                 )}
                 <p className="time">
                     {task.start_time} - {task.end_time}
