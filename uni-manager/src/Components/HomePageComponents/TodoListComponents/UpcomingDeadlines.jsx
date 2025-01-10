@@ -23,7 +23,7 @@ const UpcomingDeadlines = ({ todoData, setTodoData, username }) => {
       return (
         <div className="upcoming-deadlines-container">
           <div className="upcoming-deadlines-header">
-            <h2 className="upcoming-deadlines-title">Upcoming Deadlines</h2>
+            <h2 className="upcoming-deadlines-title">Top 10 Upcoming Deadlines</h2>
           </div>
           <div className="upcoming-deadlines-content">
             <p className="loading-text">Loading deadlines...</p>
@@ -63,7 +63,7 @@ const UpcomingDeadlines = ({ todoData, setTodoData, username }) => {
     return (
       <div className="upcoming-deadlines-container">
         <div className="upcoming-deadlines-header">
-          <h2 className="upcoming-deadlines-title">Upcoming Deadlines</h2>
+          <h2 className="upcoming-deadlines-title">Top 10 Upcoming Deadlines</h2>
         </div>
         <div className="upcoming-deadlines-content">
           {upcomingDeadlines.length > 0 ? (

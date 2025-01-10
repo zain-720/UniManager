@@ -12,7 +12,15 @@ function Login(props) {
     const username = props.username;
     const [userPassword, setUserPassword] = useState("");
     const [loginResult, setLoginResult] = useState(true);
+    const navigate = useNavigate();
 
+    //Clear username from data if user cancels 
+    function useCancel(){
+        props.setUsername("");
+        setUserPassword("");
+        navigate('/');
+    }
+    
     return (
 
         <div className='login-page'>
@@ -21,7 +29,7 @@ function Login(props) {
                 <TextInput type="text" placeholder="Username" func={props.setUsername} value={username}/>
                 <TextInput type="password" placeholder="Password" func={setUserPassword} value={userPassword}/>
                 <RequestLogin username={username} password={userPassword} func={setLoginResult} funcPass={setUserPassword} funcUser={props.setUsername} login={props.login}/>
-                <NavigationButton route={'/'} text={"Cancel"}/>
+                <button onClick={useCancel}>Cancel</button>
             </div>
             
             

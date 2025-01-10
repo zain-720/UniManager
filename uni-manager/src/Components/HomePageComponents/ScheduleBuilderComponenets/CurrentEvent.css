@@ -44,7 +44,6 @@
 .task-header {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
     margin-left: 0.5rem;
     color: #4b5563;
 }
@@ -79,6 +78,8 @@
     color: #1f2937;
     margin: 0 0 0.75rem 0.5rem;
     cursor: pointer;
+    width: calc(100% - 1rem);   
+    box-sizing: border-box;     
 }
 
 .location {
@@ -109,7 +110,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     margin-left: 0.5rem;
-    max-width: 100%;
+    
 }
 
 .truncate-text:hover {

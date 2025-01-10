@@ -1,7 +1,8 @@
 .note-taker-container {
-  max-width: 80%;; /*box width*/
+  max-width: 80%;; 
+  min-width: 500px;   
   height: 90%;
-  margin: 0 auto; /*to center*/
+  margin: 0 auto; 
   padding: 24px;
   gap: 4px;
   background-color: white;
@@ -12,7 +13,7 @@
 .note-box {
     display: flex;
     flex-direction: column;
-    flex-shrink: 0;    /* Prevents container from shrinking below min size */
+    flex-shrink: 0;    
     gap: 4px;
 }
 

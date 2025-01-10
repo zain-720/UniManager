@@ -185,10 +185,11 @@ const ScheduleBuilder = (props) => {
     return (
         <div className="schedule-builder">
             <div className="schedule-container">
-            <h2 className="schedule-title">
+            <div className="schedule-title">
                 <Clock className="clock-icon" />
-                Weekly Schedule Builder
-            </h2>
+                <h2>Weekly Schedule Builder</h2>
+            </div>
+            <h3>* is required</h3>
     
             {/* Add New Entry Form */}
             <div className="form-grid">

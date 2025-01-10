@@ -42,7 +42,7 @@ function App() {
     const warmupServer = async () => {
       try {
         await axios.get(serverURL +"/ping");
-        console.log('Server pinged');
+        //console.log('Server pinged');
       } catch (error) {
         // Ignore errors since this is just a warmup
         console.log('Warmup request sent');

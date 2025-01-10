@@ -16,8 +16,8 @@
 }
 
 .container {
-    width: clamp(270px, 40vw, 500px);    /* 40% of viewport width until 500px */
-    height: clamp(250px, 40vh,300px);    /* 40% of viewport height until 300px */
+    width: clamp(270px, 40vw, 500px);    
+    height: clamp(250px, 40vh,300px);    
     padding: clamp(12px, 2vh, 24px); 
     background-color: white;
     border-radius: 8px;
@@ -25,6 +25,15 @@
     border: 1px solid black;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: clamp(10px, 15px, 20px);
-    flex-shrink: 0;    /* Prevents container from shrinking below min size */
+    flex-shrink: 0;    
+    overflow: auto;   
+    position: relative; 
+}
+
+.container h4 {
+    margin: 0;                   
+    flex: 1;                      
+    overflow-y: auto;             
 }
