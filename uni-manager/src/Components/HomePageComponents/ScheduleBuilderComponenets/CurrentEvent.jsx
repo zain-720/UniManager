@@ -99,7 +99,7 @@ const CurrentEvent = ({ scheduleData, setScheduleData, username }) => {
                         onClick={() => handleTextClick('Location', task.location)}
                     >
                         <MapPin className="location-icon" />
-                        <span class="location-text">{task.location}</span>
+                        <span className="location-text">{task.location}</span>
                     </div>
                 )}
                 <p className="time">
