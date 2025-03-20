@@ -1,27 +1,13 @@
 .note-taker-container {
-  max-width: 80%;; 
-  min-width: 500px;   
-  height: 90%;
-  margin: 0 auto; 
-  padding: 24px;
-  gap: 4px;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.note-box {
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;    
-    gap: 4px;
-}
-
-.name-box input {
-    width: 60%;
-}
-
-.text-box textarea  {
-    width: 100%;
-    height: 50vh;
-}
+    max-width: 80%;
+    min-width: 500px;
+    height: 90%;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  /* Most styling is now handled by Bootstrap classes */
+  /* You can add any additional custom styling here if needed */
+  textarea.form-control {
+    min-height: 50vh;
+  }
