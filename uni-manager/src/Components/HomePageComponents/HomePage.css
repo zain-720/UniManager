@@ -98,14 +98,14 @@
     
     gap: 20px;
     padding: 20px;
-    width: 100%;        
+    width: 100%;  
+    min-width: 855px;      
     min-height: 90vh;   
     flex-grow: 1;
     flex: 1;
 }
 
 .main-area {
-    border: 1px solid #ddd;
     border-radius: 8px;
     padding: 20px;
     height: auto;

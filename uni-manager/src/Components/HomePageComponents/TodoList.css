@@ -60,6 +60,7 @@
   margin-bottom: 16px;
   overflow: auto;
   height: 20%;
+  max-height: 70vh;
   contain: content;
 }
 

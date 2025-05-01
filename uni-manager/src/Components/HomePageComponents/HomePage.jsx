@@ -135,12 +135,12 @@ function HomePage(props) {
             {/* Display child routes here */}
             <div className='row middle-content container-fluid p-0'>
                 <div className='row m-0'>
-                    <div className='col-9 p-3'>
+                    <div className='col-9 p-3 main-area'>
                         {location.pathname === '/home-page/note-taker' && <Outlet context={[noteData, setNoteData, loading, setLoading ]}/>}
                         {location.pathname === '/home-page/todo-list' && <Outlet context={[todoData, setTodoData, loading, setLoading ]}/>}
                         {location.pathname === '/home-page/schedule-builder' && <Outlet context={[scheduleData, setScheduleData, loading, setLoading ]}/>}
                     </div>
-                    <div className='col-3 p-3 bg-light'>
+                    <div className='col-3 p-3 side-area '>
                         <div className='side-area-top'>
                             <UpcomingDeadlines 
                             todoData={todoData} 
