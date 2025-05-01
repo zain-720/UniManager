@@ -18,21 +18,31 @@ function CreateAccount(){
     return (
 
         <div className='create-account-page'>
-            <div className='create-account-container'>
-                <h3>Username and Password fields cannot be empty</h3>
-                <div className='creation-boxes'>
+            <div className='container'>
+                
+                <div className="row"> 
+                    <h3>Username and Password fields cannot be empty</h3>
+                </div>
+
+                <div className='row'>
                     {emptyCheck && <h4>Username or Password feild is empty, fill them out</h4>}
                     {!creationResult && <h4>Username already taken try another one</h4>}
                     {!passwordDiffCheck && <h4>Passwords are different try again</h4>}
+                </div>    
                     <TextInput type="text" placeholder="Username" value={userName} func={setUsername}/>
                     <TextInput type="password" placeholder="Password" value={userPassword} func={setUserPassword}/>
                     <TextInput type="password" placeholder="Input Same Password Again" value={userPasswordConfirm} func={setUserPasswordConfirm}/>
-                    
-                </div>
-                <RequestCreation username={userName} password={userPassword} passwordConfirm={userPasswordConfirm} 
+                <div className="row"> 
+                    <RequestCreation username={userName} password={userPassword} passwordConfirm={userPasswordConfirm} 
                     funcUser={setUsername} funcPass={setUserPassword} funcPassConf={setUserPasswordConfirm}
-                    funcPasswordDiff={setPasswordDiffResult} funcUserCheck={setCreationResult} funcEmpty={emptyCheckResult}/>
-                <NavigationButton route={'/'} text={"Cancel"}/>
+                    funcPasswordDiff={setPasswordDiffResult} funcUserCheck={setCreationResult} funcEmpty={emptyCheckResult}/>  
+                </div>
+
+                <div className="row"> 
+                    <NavigationButton route={'/'} text={"Cancel"}/>
+                </div>
+
+                
             </div>
         </div>
     );

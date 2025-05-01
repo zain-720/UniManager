@@ -82,88 +82,93 @@ function HomePage(props) {
     const [width, smallerWidth] = useWindowWidth();
     return(
     <div className='home-page'>
-        
-        {/* Display app buttons here */}
-        <div className='top-bar'>
-            {width ? 
-            (<div className="top-bar-grid">
-                <div className="small-menu-header">
-                    {smallerWidth && (<h1>Welcome</h1>)}
-                    <button 
-                        className="menu-button"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        <Menu size={24} />
-                    </button>
-                    
-                    {isOpen && (
-                        <div className="dropdown-menu">
-                            <button onClick={() => {
-                                setIsOpen(false);
-                                handleFunctionStart(GetNoteData, setNoteData, '/home-page/note-taker');
-                            }}>Note Taker</button>
+        <div className='container-fluid no-spacing'>
+            {/* Display app buttons here */}
+            <div className='row top-bar'>
+                {width ? 
+                (<div className="top-bar-grid">
+                    <div className="small-menu-header">
+                        {smallerWidth && (<h1>Welcome</h1>)}
+                        <button 
+                            className="menu-button"
+                            onClick={() => setIsOpen(!isOpen)}
+                        >
+                            <Menu size={24} />
+                        </button>
+                        
+                        {isOpen && (
+                            <div className="dropdown-menu">
+                                <button onClick={() => {
+                                    setIsOpen(false);
+                                    handleFunctionStart(GetNoteData, setNoteData, '/home-page/note-taker');
+                                }}>Note Taker</button>
 
-                            <button onClick={() => {
-                                setIsOpen(false);
-                                handleFunctionStart(GetTodoListData, setTodoData, '/home-page/todo-list');
-                            }}>Todo List</button>
-                            
-                            <button onClick={() => {
-                                setIsOpen(false);
-                                handleFunctionStart(GetScheduleData, setScheduleData, '/home-page/schedule-builder');
-                            }}>Weekly Schedule</button>
+                                <button onClick={() => {
+                                    setIsOpen(false);
+                                    handleFunctionStart(GetTodoListData, setTodoData, '/home-page/todo-list');
+                                }}>Todo List</button>
+                                
+                                <button onClick={() => {
+                                    setIsOpen(false);
+                                    handleFunctionStart(GetScheduleData, setScheduleData, '/home-page/schedule-builder');
+                                }}>Weekly Schedule</button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+                ) 
+                : 
+                (<div className='top-bar-grid'>
+                    <div className='top-bar-main-app-grid'>
+                        <h1>Welcome</h1>    
+                        <button onClick={() => handleFunctionStart(GetNoteData, setNoteData, '/home-page/note-taker')}>Note Taker</button>
+                        <button onClick={() => handleFunctionStart(GetTodoListData, setTodoData, '/home-page/todo-list')}>Todo List</button>
+                        <button onClick={() => handleFunctionStart(GetScheduleData, setScheduleData, '/home-page/schedule-builder')}>Weekly Schedule</button>
+                    </div>
+                    <div>
+                        <h4></h4>
+                    </div>
+                </div> ) }
+                
+            </div>
+
+            {/* Display child routes here */}
+            <div className='row middle-content container-fluid p-0'>
+                <div className='row m-0'>
+                    <div className='col-9 p-3'>
+                        {location.pathname === '/home-page/note-taker' && <Outlet context={[noteData, setNoteData, loading, setLoading ]}/>}
+                        {location.pathname === '/home-page/todo-list' && <Outlet context={[todoData, setTodoData, loading, setLoading ]}/>}
+                        {location.pathname === '/home-page/schedule-builder' && <Outlet context={[scheduleData, setScheduleData, loading, setLoading ]}/>}
+                    </div>
+                    <div className='col-3 p-3 bg-light'>
+                        <div className='side-area-top'>
+                            <UpcomingDeadlines 
+                            todoData={todoData} 
+                            setTodoData={setTodoData}
+                            username={props.username}
+                            />
                         </div>
-                    )}
-                </div>
-            </div>
-            ) 
-            : 
-            (<div className='top-bar-grid'>
-                <div className='top-bar-main-app-grid'>
-                    <h1>Welcome</h1>    
-                    <button onClick={() => handleFunctionStart(GetNoteData, setNoteData, '/home-page/note-taker')}>Note Taker</button>
-                    <button onClick={() => handleFunctionStart(GetTodoListData, setTodoData, '/home-page/todo-list')}>Todo List</button>
-                    <button onClick={() => handleFunctionStart(GetScheduleData, setScheduleData, '/home-page/schedule-builder')}>Weekly Schedule</button>
-                </div>
-                <div>
-                    <h4></h4>
-                </div>
-            </div> ) }
-               
-        </div>
-
-        {/* Display child routes here */}
-        <div className='middle-content'>
-            <div className='main-area'>
-                {location.pathname === '/home-page/note-taker' && <Outlet context={[noteData, setNoteData, loading, setLoading ]}/>}
-                {location.pathname === '/home-page/todo-list' && <Outlet context={[todoData, setTodoData, loading, setLoading ]}/>}
-                {location.pathname === '/home-page/schedule-builder' && <Outlet context={[scheduleData, setScheduleData, loading, setLoading ]}/>}
-            </div>
-            <div className='side-area'>
-                <div className='side-area-top'>
-                    <UpcomingDeadlines 
-                    todoData={todoData} 
-                    setTodoData={setTodoData}
-                    username={props.username}
-                    />
-                </div>
-                <div className="side-area-bottom">
-                    <CurrentEvent 
-                    scheduleData={scheduleData} 
-                    setScheduleData={setScheduleData}
-                    username={props.username}
-                    />
+                        <div className="side-area-bottom">
+                            <CurrentEvent 
+                            scheduleData={scheduleData} 
+                            setScheduleData={setScheduleData}
+                            username={props.username}
+                            />
+                        </div>
+                        
+                    </div>
                 </div>
                 
             </div>
-            
-            
-        </div>
 
-        <div className='bottom-bar'>
-            <button onClick={handleLogout}>Log out</button>
+            <div className='row bottom-bar'>
+                <div className='top-bar-grid'>
+                    <div className='top-bar-main-app-grid'>
+                        <button onClick={handleLogout}>Log out</button>
+                    </div>    
+                </div>
+            </div>
         </div>
-        
     </div>
     );
 }

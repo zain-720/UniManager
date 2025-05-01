@@ -1,10 +1,17 @@
 .create-account-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: auto
 }
+
+.container {
+    min-height: fit-content;
+    overflow: hidden;
+    
+  }
 
 .create-account-container {
     width: clamp(250px, 40vw, 800px);    /* 40% of viewport width until 500px */
@@ -20,7 +27,7 @@
     flex-shrink: 0;    /* Prevents container from shrinking below min size */
 }
 
-.create-account-container button {
+.create-account-page button {
     padding: 10px 20px;
     border-radius: 4px;
     border: none;

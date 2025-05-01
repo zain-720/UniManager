@@ -24,7 +24,7 @@ function Login(props) {
     return (
 
         <div className='login-page'>
-            <div className='login-container'>
+            <div className='container text-center'>
                 {!loginResult ? <h3>Username or password was incorrect try again</h3> : <h3></h3>}
                 <TextInput type="text" placeholder="Username" func={props.setUsername} value={username}/>
                 <TextInput type="password" placeholder="Password" func={setUserPassword} value={userPassword}/>
