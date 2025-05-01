@@ -1,5 +1,6 @@
 
 .welcome-page {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -7,51 +8,15 @@
     overflow: auto
 }
 
-.welcome-container {
-    width: clamp(180px, 40vw, 500px);    /* 40% of viewport width until 500px */
-    height: clamp(250px, 40vh,300px);    /* 40% of viewport height until 300px */
-    padding: clamp(12px, 2vh, 24px); 
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid black;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(10px, 15px, 20px);
-    flex-shrink: 0;    /* Prevents container from shrinking below min size */
-}
-
-
-.text-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 2; 
-}
-
-.disclaimer-box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 0; 
+.disclaimer-box h4 { /* competing with bootstrap */
+    overflow: hidden !important;
 }
 
 .disclaimer-box .link {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     text-decoration: none;
     color: black;
     cursor: pointer;
-}
-
-.disclaimer-box .link h4 {
-    text-align: center;
-    width: 100%;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    overflow: hidden;
 }
 
 .disclaimer-box .link:hover {
@@ -62,16 +27,6 @@
     text-decoration: none; 
     color: inherit; 
     cursor: pointer;
-}
-
-.button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    row-gap: clamp(10px, 20vh, 20px);
-    column-gap: clamp(10px, 20vh, 60px);
-    flex: 2; 
 }
 
 .welcome-page button {

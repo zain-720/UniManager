@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 import Welcome from './Components/WelcomePageComponents/WelcomeScreen';
 import Login from './Components/LoginComponents/Login';
 import CreateUser from './Components/CreateAccountComponenets/CreateAccount';

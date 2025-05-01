@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import axios from "axios";
 import '../NoteTaker.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 import TextInput from '../../Ultilities/TextInput';
 
